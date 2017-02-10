@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/mvc 
+        	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+        	http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd">
+			
+	<!-- 提供注解功能的配置 -->
+	<mvc:annotation-driven />
+	<!-- 提供注解功能的配置 -->
+	<context:annotation-config></context:annotation-config>
+	<context:component-scan base-package="com.library.controller" />
+	
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/pages/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+	
+	<!-- 静态资源的配置 -->
+	<mvc:resources location="/images/" mapping="/images/**" />
+	<mvc:resources location="/js/" mapping="/js/**" />
+	<mvc:resources location="/styles/" mapping="/styles/**" />
+	
+	
+	
+	
+	 <!-- 使用Hibernate validator -->
+	<bean id="validator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+		<property name="providerClass" value="org.hibernate.validator.HibernateValidator">
+		</property>
+		<property name="validationMessageSource" ref="validationMessageSource"></property>
+	</bean>
+
+	<!-- Hibernate validator的数据源配置 -->
+	<bean id="validationMessageSource"
+		class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="basenames">
+			<list>
+				<value>classpath:validation/validation</value>
+			</list>
+		</property>
+		<!-- 资源文件的编码 -->
+		<property name="fileEncodings" value="utf-8"></property>
+		<!-- 对资源文件缓存的时间 -->
+		<property name="cacheSeconds" value="120"></property>
+	</bean>
+	
+	
+	<!-- 
+	<bean class="com.xjs.pt.exception.DefaultException"></bean> -->
+</beans>

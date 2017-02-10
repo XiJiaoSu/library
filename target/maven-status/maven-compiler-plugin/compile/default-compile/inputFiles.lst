@@ -1,0 +1,10 @@
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\service\imp\UserServiceImp.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\controller\UserController.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\exception\entity\Message.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\exception\entity\BaseException.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\controller\DefaultController.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\pojo\User.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\controller\validation\LoginValidator.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\exception\DefaultException.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\dao\UserDao.java
+H:\WorkSpace\SchoolWork\library\src\main\java\com\library\service\UserService.java
