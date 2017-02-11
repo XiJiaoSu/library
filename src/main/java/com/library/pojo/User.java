@@ -2,16 +2,23 @@ package com.library.pojo;
 
 import java.util.Date;
 
-public class User {
+import javax.validation.constraints.Size;
+
+import com.library.controller.validation.LoginValidator;
+import com.library.controller.validation.RegisterValidator;
+
+public class User implements PTResult {
 
 	private String id;
+	@Size(min = 8, max = 20, message = "{user.name.length}", groups = { LoginValidator.class })
 	private String username;
+	@Size(min = 9, max = 20, message = "密码长度9-20", groups = { LoginValidator.class, RegisterValidator.class })
 	private String password;
 	private Integer age;
 	private String email;// 邮箱
 	private Date birth;// 生日
 	private String phone;// 手机号
-	private String stuId;//学号
+	private String stuId;// 学号
 
 	public String getId() {
 		return id;

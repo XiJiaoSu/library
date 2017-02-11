@@ -6,15 +6,15 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import com.library.exception.entity.BaseException;
-import com.library.exception.entity.Message;
+import com.library.pojo.json.JsonObject;
  
 
 @ControllerAdvice
 public class DefaultException{
 
 	@ExceptionHandler(BaseException.class)
-	public ResponseEntity<Message> expection(BaseException e) {
-		ResponseEntity<Message> entity = new ResponseEntity<Message>(e.productMessage(),
+	public ResponseEntity<JsonObject> expection(BaseException e) {
+		ResponseEntity<JsonObject> entity = new ResponseEntity<JsonObject>(e.productJsonObject(),
 				HttpStatus.OK);
 		return entity;
 	}

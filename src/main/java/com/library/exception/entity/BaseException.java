@@ -1,12 +1,14 @@
 package com.library.exception.entity;
 
+import com.library.pojo.json.JsonObject;
+
 /** 
 * @version 创建时间：2016年6月29日 下午1:48:10 
 *
 */
-public class BaseException extends RuntimeException{
+public class BaseException extends Exception{
 
-	private int code=-100;
+	private int code=-1;
 	
 	/**
 	 * 
@@ -34,8 +36,8 @@ public class BaseException extends RuntimeException{
 		return serialVersionUID;
 	}
 	
-	public  Message productMessage() {
-		return new Message(this);
+	public  JsonObject productJsonObject() {
+		return new JsonObject(code,getMessage());
 	}
 	
 }

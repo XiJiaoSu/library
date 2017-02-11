@@ -12,8 +12,18 @@
 	</resultMap>
 
 	<sql id="Base_Column_List">
-		id, username, password,email,phone,birth
+		id,username,email,phone,birth
 	</sql>
+
+<!-- 用户登陆使用的语句 -->
+	<select id="login" parameterType="com.library.pojo.User" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List"/>
+		FROM T_User
+		where username=#{username}  
+		and 
+		password = #{password}
+	</select>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
@@ -32,7 +42,7 @@
 		insert into T_User (id,
 		user_name, password)
 		values (#{id,jdbcType=VARCHAR},
-		#{userName,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR}
 	</insert>
 
@@ -42,7 +52,7 @@
 			<if test="id != null">
 				id,
 			</if>
-			<if test="userName != null">
+			<if test="username != null">
 				user_name,
 			</if>
 			<if test="password != null">
@@ -53,7 +63,7 @@
 			<if test="id != null">
 				#{id,jdbcType=VARCHAR},
 			</if>
-			<if test="userName != null">
+			<if test="username != null">
 				#{userName,jdbcType=VARCHAR},
 			</if>
 			<if test="password != null">

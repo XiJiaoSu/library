@@ -7,10 +7,10 @@ import com.library.pojo.PTResult;
 
 public class JsonList {
 
-	private int code;//返回结果码，200表示成功，500表示失败，此时需要完善msg提示
+	private int code=1;//返回结果码，1表示成功，-1表示失败，此时需要完善msg提示
 	private String msg;
 	
-	private List<PTResult> list=null;
+	private List<PTResult> result=null;
 
 	public int getCode() {
 		return code;
@@ -28,15 +28,15 @@ public class JsonList {
 		this.msg = msg;
 	}
 
-	public List<PTResult> getList() {
-		if (list==null) {
-			list=new ArrayList<PTResult>();
+	public List<PTResult> getResult() {
+		if (this.result==null) {
+			result=new ArrayList<PTResult>();
 		}
-		return list;
+		return result;
 	}
 
-	public void setList(List<PTResult> list) {
-		this.list = list;
+	public void setResult(List<PTResult> list) {
+		this.result = list;
 	}
 	
 }
