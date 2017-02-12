@@ -11,7 +11,7 @@
 			http://www.springframework.org/schema/context/spring-context.xsd">
 			
 	<!-- 提供注解功能的配置 -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven validator="validator"/>
 	<!-- 提供注解功能的配置 -->
 	<context:annotation-config></context:annotation-config>
 	<context:component-scan base-package="com.library.controller" />
@@ -25,7 +25,8 @@
 	<!-- 静态资源的配置 -->
 	<mvc:resources location="/images/" mapping="/images/**" />
 	<mvc:resources location="/js/" mapping="/js/**" />
-	<mvc:resources location="/styles/" mapping="/styles/**" />
+	<mvc:resources location="/css/" mapping="/css/**" />
+	<mvc:resources location="/WEB-INF/pages" mapping="/pages/**" />
 	
 	
 	
@@ -53,6 +54,6 @@
 	</bean>
 	
 	
-	<!-- 
-	<bean class="com.xjs.pt.exception.DefaultException"></bean> -->
+	
+	<bean class="com.library.exception.DefaultException"></bean>
 </beans>

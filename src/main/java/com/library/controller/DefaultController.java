@@ -6,9 +6,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class DefaultController {
 
-	@RequestMapping(value="/test")
-	public String index() throws Exception{
+	@RequestMapping(value="/login")
+	public String loign() throws Exception{
 		System.out.println("Index");
-		return "index";
+		return "login";
+	}
+	
+	@RequestMapping(value="/main")
+	public String main() throws Exception{
+		System.out.println("Index");
+		return "main";
 	}
 }

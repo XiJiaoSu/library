@@ -30,7 +30,7 @@ public class TestMyBatis {
 //	}
 
 	@Test
-	public void test1() {
+	public void test1() throws Exception {
 		User user = userService.getUserById("123123123");
 		System.out.println(user.getUsername());
 		//logger.info("值："+user.getUserName());

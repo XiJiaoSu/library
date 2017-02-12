@@ -48,12 +48,9 @@ public class UserController {
 	 */
 	@RequestMapping("login")
 	@ResponseBody
-	public JsonObject userLogin(@Validated(value = LoginValidator.class) // 使用HIbernate
-																			// Validator进行验证，详情看User
-																			// 对象
+	public JsonObject userLogin(@Validated(value = LoginValidator.class) // 使用HIbernate-Validator进行验证，详情看User 对象
 	@RequestBody User user, // 将传递的额JSON对象传入，并自动转为user对象
-			BindingResult bindingResult// 如果Hibernate
-										// validator验证出现问题，将会获取User对象中的出错信息，并保存到当前对象中
+			BindingResult bindingResult// 如果Hibernate-validator验证出现问题，将会获取User对象中的出错信息，并保存到当前对象中
 	) throws Exception {
 		if (bindingResult.hasErrors()) {
 			String msg = bindingResult.getAllErrors().get(0).getDefaultMessage();
