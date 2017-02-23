@@ -4,6 +4,7 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	pageContext.setAttribute("basePath",basePath);
 %>
 <!DOCTYPE html>
 <html>
@@ -22,19 +23,20 @@ body {
 <link href="css/css.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="js/jquery-3.1.1.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function(){
 	$("#bt_login").click(function(){
-		alert("${basePath}");
 		$.ajax({
 			type:"get",//请求数据的发送方式
 			url:"${basePath}"+"main",
 			error:function(msg){
 				alert(msg);
 			},
-			success:function(msg){
-				alert("sadf");
+			success:function(){
+				window.location.href = "${basePath}"+"main";
 			}
 		});
 	});
+});
 </script>
 </head>
 
