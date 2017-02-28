@@ -26,13 +26,16 @@ body {
 $(document).ready(function(){
 	$("#bt_login").click(function(){
 		$.ajax({
-			type:"get",//请求数据的发送方式
-			url:"${basePath}"+"main",
+			type:"post",//请求数据的发送方式
+			url:"${basePath}"+"admin/login",
+			contentType: "application/json; charset=utf-8", 
+			data:"{'username':'123123123','password':'123123123'}",
+			dataType: "json", 
+			success:function(msg){
+				window.location.href = "${basePath}"+"main";
+			},
 			error:function(msg){
 				alert(msg);
-			},
-			success:function(){
-				window.location.href = "${basePath}"+"main";
 			}
 		});
 	});

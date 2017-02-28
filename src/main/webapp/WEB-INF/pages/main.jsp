@@ -4,6 +4,7 @@
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
+	pageContext.setAttribute("basePath",basePath);
 %>
 <!DOCTYPE html>
 <html>
@@ -20,7 +21,7 @@
 		<frame src="./files/left.jsp" name="leftFrame" scrolling="No"
 			noresize="noresize" id="leftFrame" title="leftFrame" />
 		<frame src="./files/mainfra.jsp" name="mainFrame" id="mainFrame"
-			title="mainFrame" />
+			title="mainFrame"/>
 	</frameset>
 </frameset>
 <noframes>
