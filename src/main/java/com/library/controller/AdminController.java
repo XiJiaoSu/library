@@ -47,12 +47,20 @@ public class AdminController {
 	@RequestBody User user, // 将传递的额JSON对象传入，并自动转为user对象
 			BindingResult bindingResult// 如果Hibernate-validator验证出现问题，将会获取User对象中的出错信息，并保存到当前对象中
 	) throws Exception {
-		System.out.println("admin_login");
+		System.out.println("admin_login"+user);
 		if (bindingResult.hasErrors()) {
 			String msg = bindingResult.getAllErrors().get(0).getDefaultMessage();
 			System.out.println(msg);
 			throw new BaseException(msg);
 		}
+		System.out.println("admin_login");
+		return new JsonObject(userService.login(user));
+	}
+	
+	@RequestMapping("login2")
+	@ResponseBody
+	public JsonObject adminLogin(@RequestBody User user) throws Exception {
+		System.out.println(user);
 		System.out.println("admin_login");
 		return new JsonObject(userService.login(user));
 	}

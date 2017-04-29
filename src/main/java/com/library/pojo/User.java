@@ -84,4 +84,10 @@ public class User implements PTResult {
 		this.stuId = stuId;
 	}
 
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", age=" + age + ", email="
+				+ email + ", birth=" + birth + ", phone=" + phone + ", stuId=" + stuId + "]";
+	}
+
 }

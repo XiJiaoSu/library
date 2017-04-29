@@ -4,5 +4,14 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+	<typeAliases>
+		<typeAlias type="com.library.pojo.User" alias="UserBean" />
+		<typeAlias type="com.library.pojo.Clazz" alias="ClazzBean" />
+		<typeAlias type="com.library.pojo.Department" alias="DepartmentBean" />
+		<typeAlias type="com.library.pojo.Library" alias="LibraryBean" />
+		<typeAlias type="com.library.pojo.Message" alias="MessageBean" />
+		<typeAlias type="com.library.pojo.Order" alias="OrderBean" />
+		<typeAlias type="com.library.pojo.Seat" alias="SeatBean" />
+	</typeAliases>
 
 </configuration>

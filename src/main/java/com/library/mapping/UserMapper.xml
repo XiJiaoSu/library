@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.library.dao.UserDao">
+
 	<resultMap id="BaseResultMap" type="com.library.pojo.User">
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
@@ -33,14 +34,14 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 
-	<delete id="deleteByPrimaryKey" parameterType="string">
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
 		delete from T_User
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 
 	<insert id="insert" parameterType="com.library.pojo.User">
 		insert into T_User (id,
-		user_name, password)
+		usename, password)
 		values (#{id,jdbcType=VARCHAR},
 		#{username,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR}
@@ -92,5 +93,6 @@
 		#{password,jdbcType=VARCHAR}
 		where id =
 		#{id,jdbcType=VARCHAR}
-	</update>
+	</update> 
+	
 </mapper>

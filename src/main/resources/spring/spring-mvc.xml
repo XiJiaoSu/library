@@ -11,9 +11,9 @@
 			http://www.springframework.org/schema/context/spring-context.xsd">
 			
 	<!-- 提供注解功能的配置 -->
-	<mvc:annotation-driven validator="validator"/>
+	<mvc:annotation-driven validator="validator" />
 	<!-- 提供注解功能的配置 -->
-	<context:annotation-config></context:annotation-config>
+	<context:annotation-config ></context:annotation-config>
 	<context:component-scan base-package="com.library.controller" />
 	
 	<bean
