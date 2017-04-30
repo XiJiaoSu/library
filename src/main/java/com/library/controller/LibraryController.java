@@ -36,11 +36,10 @@ public class LibraryController {
 		library=libraryService.addLibrary(library);
 		return new JsonObject(library);
 	}
-	@RequestMapping(value="get/{id}",method=RequestMethod.GET)
-	public JsonObject getLibraryById(@PathVariable("id") String id)throws Exception{
+	@RequestMapping(value="get")
+	public JsonObject getLibraryById(@RequestBody String id)throws Exception{
 		Library library=libraryService.selectLibraryById(id);
 		return new JsonObject(library);
-		
 	}
 	
 }

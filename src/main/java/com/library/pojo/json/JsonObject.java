@@ -4,7 +4,7 @@ import com.library.pojo.PTResult;
 
 public class JsonObject {
 
-	private int code=1;//返回结果码，1表示成功，-1表示失败，此时需要完善msg提示
+	private int code=200;//返回结果码，200表示成功，-100表示失败，此时需要完善msg提示
 	private String msg="成功";
 	
 	private PTResult result;
