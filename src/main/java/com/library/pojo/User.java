@@ -4,9 +4,12 @@ import java.util.Date;
 
 import javax.validation.constraints.Size;
 
+import org.apache.ibatis.type.Alias;
+
 import com.library.controller.validation.LoginValidator;
 import com.library.controller.validation.RegisterValidator;
 
+@Alias("UserBean")
 public class User implements PTResult {
 
 	private String id;

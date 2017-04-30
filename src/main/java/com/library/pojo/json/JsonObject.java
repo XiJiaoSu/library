@@ -9,6 +9,10 @@ public class JsonObject {
 	
 	private PTResult result;
 
+	public JsonObject() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	/**
 	 * 当发生异常时执行
 	 * @param code

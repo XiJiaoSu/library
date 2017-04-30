@@ -7,8 +7,9 @@ public class Library implements PTResult{
 	private String start;//结束时间
 	private String end;//关门时间
 	private String description;//描述
-	private boolean idOpen;//是否开放
+	private boolean isOpen;//是否开放
 	private int level;//图书馆的层数
+	
 	public String getId() {
 		return id;
 	}
@@ -45,11 +46,12 @@ public class Library implements PTResult{
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	public boolean isIdOpen() {
-		return idOpen;
+	
+	public boolean isOpen() {
+		return isOpen;
 	}
-	public void setIdOpen(boolean idOpen) {
-		this.idOpen = idOpen;
+	public void setOpen(boolean isOpen) {
+		this.isOpen = isOpen;
 	}
 	public int getLevel() {
 		return level;
@@ -57,4 +59,6 @@ public class Library implements PTResult{
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
+	
 }
