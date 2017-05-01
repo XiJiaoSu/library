@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.dao.MessageDao">
+
+	<resultMap type="MessageBean" id="MessageResult">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="msg" property="message" jdbcType="VARCHAR" />
+		<result column="time" property="time" jdbcType="TIMESTAMP" />
+	</resultMap>
+
+	<sql id="Base_SQL">
+		id,title,msg,time
+	</sql>
+
+	<sql id="Insert_SQL">
+		(id,title,msg,time)
+	</sql>
+
+	<select id="selectMessageById" parameterType="string" resultMap="MessageResult">
+		select <include refid="Base_SQL" />
+		from t_msg 
+		where 
+		id=#{id}
+	</select>
+	
+	<select id="selectMessage" parameterType="MessageBean" resultMap="MessageResult">
+		select <include refid="Base_SQL" />
+		from t_msg 
+		where 
+		title=#{title} 
+		and 
+		time=#{time}
+	</select>
+	
+	<select id="queryAll" resultMap="MessageResult">
+		select <include refid="Base_SQL" />
+		from t_msg 
+	</select>
+
+	<insert id="insertMessage" parameterType="MessageBean">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual
+		</selectKey>
+
+		insert into t_msg
+			<include refid="Insert_SQL" />
+		values
+			(
+			#{id,jdbcType=VARCHAR},
+			#{title,jdbcType=VARCHAR},
+			#{message,jdbcType=VARCHAR},
+			#{time,jdbcType=TIMESTAMP}
+			)
+		</insert>
+
+</mapper>

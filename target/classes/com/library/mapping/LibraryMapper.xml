@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.dao.LibraryDao">
+
+	<resultMap type="com.library.pojo.Library" id="LibraryResult">
+		<id column="id" property="id" jdbcType="VARCHAR" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="start" property="start" jdbcType="VARCHAR" />
+		<result column="end" property="end" jdbcType="VARCHAR" />
+		<result column="open" property="isOpen" jdbcType="BOOLEAN" />
+		<result column="description" property="description" jdbcType="VARCHAR" />
+		<result column="level" property="level" jdbcType="INTEGER" />
+	</resultMap>
+
+	<sql id="Base_SQl">
+		id,name,address,start,end,open,description,level
+	</sql>
+
+	<sql id="Insert_SQL">
+		(id,name,address,start,end,open,description,level)
+	</sql>
+
+	<select id="selectLibrary" parameterType="com.library.pojo.Library"
+		resultMap="LibraryResult">
+		select <include refid="Base_SQl" />	
+		from t_library
+		where 1=1
+		<if test="name!=null and name!=''">and name=#{name}</if>
+		<if test="address!=null and address!=''">and address=#{address}</if>
+		<if test="start!=null and start!=''">and start=#{start}</if>
+		<if test="end!=null and end!=''">and end=#{end}</if>
+	</select>
+
+	<select id="selectLibraryById" parameterType="string" resultMap="LibraryResult">
+		select <include refid="Base_SQl" />	
+		from t_library
+		where id=#{id}
+	</select>
+
+	<insert id="insertLibrary" parameterType="com.library.pojo.Library">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual
+		</selectKey>
+		insert into t_library
+		<include refid="Insert_SQL" />
+		values
+		(
+		#{id,jdbcType=VARCHAR},
+		#{name,jdbcType=VARCHAR},
+		#{address,jdbcType=VARCHAR},
+		#{start,jdbcType=VARCHAR},
+		#{end,jdbcType=VARCHAR},
+		#{isOpen,jdbcType=BOOLEAN},
+		#{description,jdbcType=VARCHAR},
+		#{level,jdbcType=INTEGER}
+		)
+	</insert>
+
+</mapper>

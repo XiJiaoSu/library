@@ -3,6 +3,20 @@
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-
-
+	
+	<typeAliases>
+		<package name="com.library.pojo"/>
+	</typeAliases>
+<!-- 
+	<typeAliases>
+		
+		<typeAlias alias="ClazzBean" type="com.library.pojo.Clazz"  />
+		<typeAlias alias="DepartmentBean" type="com.library.pojo.Department"  />
+		<typeAlias  alias="LibraryBean" type="com.library.pojo.Library" />
+		<typeAlias  alias="MessageBean" type="com.library.pojo.Message" />
+		<typeAlias  alias="OrderBean" type="com.library.pojo.Order" />
+		<typeAlias  alias="SeatBean"  type="com.library.pojo.Seat" />
+		<typeAlias  alias="UserBean" type="com.library.pojo.User"  />
+	</typeAliases>
+ -->
 </configuration>
