@@ -1,3 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+	pageContext.setAttribute("basePath",basePath);
+%>
+    
 <html>
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -15,7 +24,7 @@
             <h1>图书馆座位预定管理系统</h1>
         </header>
         <div class="login-main">
-			<form action="index" class="layui-form" method="post">
+			<form action="${basePath}login" class="layui-form" method="post">
 				<input name="__RequestVerificationToken" type="hidden" value="">                
 				<div class="layui-form-item">
 					<label class="login-icon">

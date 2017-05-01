@@ -18,8 +18,8 @@
 	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/pages/"></property>
-		<property name="suffix" value=".html"></property>
+		<property name="prefix" value="/WEB-INF/"></property>
+		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
 	<!-- 静态资源的配置 -->
@@ -30,7 +30,6 @@
 	<mvc:resources location="/layui/" mapping="/layui/**" />
 	<mvc:resources location="/lib/" mapping="/lib/**" />
 	<mvc:resources location="/skin/" mapping="/skin/**" />
-	<mvc:resources location="/pages" mapping="/pages/**" />
 	
 	
 	
