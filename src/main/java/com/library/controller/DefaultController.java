@@ -38,4 +38,8 @@ public class DefaultController {
 	public String ftoIndex() {
 		return "admin";
 	}
+	@RequestMapping(value="/main")
+	public String main() throws Exception{
+		return "main";
+	}
 }

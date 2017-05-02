@@ -18,7 +18,7 @@
 	
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-		<property name="prefix" value="/WEB-INF/"></property>
+		<property name="prefix" value="/WEB-INF/pages/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 	
@@ -30,6 +30,7 @@
 	<mvc:resources location="/layui/" mapping="/layui/**" />
 	<mvc:resources location="/lib/" mapping="/lib/**" />
 	<mvc:resources location="/skin/" mapping="/skin/**" />
+	<mvc:resources location="/WEB-INF/pages" mapping="/pages/**" />
 	
 	
 	
