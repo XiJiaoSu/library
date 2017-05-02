@@ -24,48 +24,37 @@
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript">	
-		var List = [];
-		$(function(){
-			$("#showAllUsers").on("click",function(){
-				var data={
-						
-						};
-				var obj={
-						type:"POST",
-						url:"${basePath}showUser",
-						data:JSON.stringify(data),
-						dataTpye:"json",
-						contentType:"application/json"
-						};
-				$.ajax(obj).done(function(res){
-					$("#userList").empty();
-					createTable(res);
-				});
-			});
-			function createTable(res){
-				if(res.code == -1){
+		function init(){
+			var data={
 					
-				}else{
-					var list=res.result;
-					for(var i=0;i<list.length;i++){
-						var u=list[i];
-						$("<tr>").append($("<th>").text(u.id))
-						.append($("<th>").text(u.username))
-						.append($("<th>").text(u.password))
-						.append($("<th>").text(u.age))
-						.append($("<th>").text(u.email))
-						.append($("<th>").text(u.birth))
-						.append($("<th>").text(u.phone))
-						.append($("<th>").text(u.stuId))
-						.appendTo($("#userList"));
-					}
-				}
-			}
-		});
+			};
+			var obj={
+					type:"post",
+					url:"${basePath}/user/showUser",
+					data:JSON.stringify(data),
+					dataTpye:"json",
+					contentType:"application/json"
+					};
+			$.ajax(obj).done(function(res){
+				$("#resultList").empty();
+				//for(var i=0;i<res.length;i++){
+					var u = res;
+					$("<tr>").append($("<th>").text(u.id))
+					.append($("<th>").text(u.username))
+					.append($("<th>").text(u.password))
+					.append($("<th>").text(u.age))
+					.append($("<th>").text(u.email))
+					.append($("<th>").text(u.birth))
+					.append($("<th>").text(u.phone))
+					.append($("<th>").text(u.stuId))
+					.appendTo($("#resultList"));
+				//}
+			});
+		}
 	</script>
   </head>
   
-  <body>
+  <body onload="init();">
 		<div width="100%" align="center"><h3>用户信息列表</h3></div>
 		<hr>
 		<div align="right">
@@ -89,7 +78,7 @@
 								<th>学号</th>
 							</tr>
 						</thead>
-						<tbody id="userList"></tbody>
+						<tbody id="resultList"></tbody>
 					</table>
 				</div>
 			</div>
