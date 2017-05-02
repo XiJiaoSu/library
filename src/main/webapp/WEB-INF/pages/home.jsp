@@ -11,8 +11,10 @@
   </head>
   
   <body>
-	<div width="100%" height="100%" align="center">
-		<img src="./image/bg.png">
-	</div>
+  	  <div align="center" style="width: 100%; height: 100%">
+	  	  <div style="margin-top: 4%">
+	  	  	<img src="./image/bg.png">
+	  	  </div>
+  	  </div>
   </body>
 </html>

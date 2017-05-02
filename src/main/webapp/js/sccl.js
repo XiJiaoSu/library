@@ -399,8 +399,8 @@ $(function(){
 			{"id":"6","name":"查询用户信息","parentId":"1","url":"showUser.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 		]},
 		{"id":"2","name":"座位信息管理","parentId":"2","url":"","icon":"&#xe600;","order":"1","isHeader":"0","childMenus":[
-			{"id":"8","name":"查询座位信息","parentId":"2","url":"showSeat.html","icon":"","order":"1","isHeader":"0","childMenus":""},
-			{"id":"9","name":"修改座位信息","parentId":"2","url":"updateSeat.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+			{"id":"8","name":"查询图书馆信息","parentId":"2","url":"showLibrary.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+			{"id":"9","name":"查询座位信息","parentId":"2","url":"showSeat.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 		]},
 		{"id":"3","name":"预约记录管理","parentId":"3","url":"","icon":"&#xe607;","order":"1","isHeader":"0","childMenus":[
 			{"id":"10","name":"查询预约记录","parentId":"3","url":"book.html","icon":"","order":"1","isHeader":"0","childMenus":""}

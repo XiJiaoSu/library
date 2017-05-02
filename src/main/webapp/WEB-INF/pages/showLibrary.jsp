@@ -12,7 +12,7 @@
   <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
-    <title>座位信息列表</title>
+    <title>图书馆信息列表</title>
     <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 	<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
 	<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -31,7 +31,7 @@
 			};
 			var obj={
 					type:"post",
-					url:"${basePath}",
+					url:"${basePath}/library/get",
 					data:JSON.stringify(data),
 					dataTpye:"json",
 					contentType:"application/json"
@@ -42,8 +42,11 @@
 					var u = res;
 					$("<tr>").append($("<th>").text(u.id))
 					.append($("<th>").text(u.name))
-					.append($("<th>").text(u.state))
-					.append($("<th>").text(u.lId))
+					.append($("<th>").text(u.address))
+					.append($("<th>").text(u.start))
+					.append($("<th>").text(u.end))
+					.append($("<th>").text(u.description))
+					.append($("<th>").text(u.isOpen))
 					.append($("<th>").text(u.level))
 					.appendTo($("#resultList"));
 				//}
@@ -86,19 +89,23 @@
             	selectLibrary();
             }
         };
-        
+		
         $(function(){
-			$("#add").on("click",function(){
+			$("#addData").on("click",function(){
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
 				var data={
-						"Sel_XNXQ":$("select[name=Sel_XNXQ]").val(),
-						"Sel_JS":$("select[name=Sel_JS]").val(),
-						"txt_yzm":$("input[name=txt_yzm]").val()
+						"name":$("input[name=name]").val(),
+						"address":$("input[name=address]").val(),
+						"start":$("input[name=start]").val(),
+						"end":$("input[name=end]").val(),
+						"description":$("input[name=description]").val(),
+						"isOpen":$("input[name=isOpen]").val(),
+						"level":$("input[name=level]").val()
 						};
 				var obj={
 						type:"POST",
-						url:"${basePath}",
+						url:"${basePath}/library/add",
 						data:JSON.stringify(data),
 						dataTpye:"json",
 						contentType:"application/json"
@@ -109,67 +116,90 @@
 			});
 			function createTableImg(res){
 				if(res.code == -1){
-					
+					alert("添加失败");
 				}else{
-					
+					alert("添加成功");
 				}
 			}
+			$("#add").on("click",function(){
+				$("div[name=result]").hide();
+				$("div[name=register]").show();
+			});
+			$("#return").on("click",function(){
+				$("div[name=result]").show();
+				$("div[name=register]").hide();
+			});
+			$("#Search").on("click",function(){
+				$("div[name=result]").show();
+				$("div[name=register]").hide();
+			});
 		});
-		
 	</script>
   </head>
   
-  <body onload="selectLibrary();init();">
-		<div width="100%" align="center"><h3>座位信息列表</h3></div>
+  <body onload="init();">
+		<div width="100%" align="center"><h3>图书馆信息列表</h3></div>
 		<hr>
 		<div align="right">
 			图书馆名称
 			<input type="text" id="txtSearch" onchange="Search()"/>
 			<select name="Sel_Library" id="select""></select>
-			<button class="btn btn-primary" type="submit" id="Search">查询座位</button>
-			<button class="btn btn-primary" type="submit" id="add">添加座位</button>
-			<button class="btn btn-primary" type="submit" id="">修改座位</button>
-			<button class="btn btn-primary" type="submit" id="">删除座位</button>
+			<button class="btn btn-primary" type="button" id="Search" onclick="init();">查询</button>
+			<button class="btn btn-primary" type="button" id="add">添加数据</button>
+			<button class="btn btn-primary" type="button" id="update">修改数据</button>
+			<button class="btn btn-primary" type="button" id="delete">删除数据</button>
 		</div>
 		<hr>
 		<div style="width:100%; height: 100%;">
-			<div name="result" width="100%" align="center">
-				<div>
+			<div name="usertitle" width="100%" align="center">
+				<div name="result">
 					<table class="table table-striped" border="1">
 						<thead>
 							<tr>
-								<th>座位编号</th>
-								<th>座位名称</th>
-								<th>当前座位状态</th>
+								<th>图书馆编号</th>
 								<th>图书馆名称</th>
-								<th>所在楼层</th>
+								<th>图书馆地址</th>
+								<th>结束时间</th>
+								<th>关门时间</th>
+								<th>描述</th>
+								<th>是否开放</th>
+								<th>图书馆的层数</th>
 							</tr>
 						</thead>
 						<tbody id="resultList"></tbody>
 					</table>
 				</div>
+				<div name="register" style="display:none;">
+					<h3>添加数据</h3>	
+					<hr>
+					<table class="table table-striped" style="width: 40%;text-align: center">
+						<tr>
+							<td>图书馆名称:</td><td><input type="text" name="name" /></td>
+						</tr>
+						<tr>
+							<td>图书馆地址:</td><td><input type="text" name="address" /></td>
+						</tr>
+						<tr>
+							<td>结束时间:</td><td><input type="text" name="start" /></td>
+						</tr>
+						<tr>
+							<td>关门时间:</td><td><input type="text" name="end" /></td>
+						</tr>
+						<tr>
+							<td>描述:</td><td><textarea rows="5" cols="22" name="description"></textarea></td>
+						</tr>
+						<tr>
+							<td>是否开放:</td><td><input type="text" name="isOpen"/></td>
+						</tr>
+						<tr>
+							<td>图书馆的层数:</td><td><input type="text" name="level" /></td>
+						</tr>
+					</table>
+					<div><button class="btn btn-primary" type="submit" id="addData">添加</button>
+						<button class="btn btn-primary" type="button" id="return">返回</button>
+					</div>
+				</div>
 			</div>
-			<div name="register" style="display:none;" align="center">
-				<h3>添加座位</h3>	
-				<hr>
-				<table class="table table-striped" style="width: 40%;text-align: center">
-					<tr>
-						<td>座位名称:</td><td><input type="text" id="" /></td>
-					</tr>
-					<tr>
-						<td>当前座位状态:</td><td><input type="text" id="" /></td>
-					</tr>
-					<tr>
-						<td>图书馆名称:</td><td><input type="text" id="" /></td>
-					</tr>
-					<tr>
-						<td>所在楼层:</td><td><input type="text" id="" /></td>
-					</tr>
-				</table>
-				<div><button class="btn btn-primary" type="submit" id="">添加</button>
-					<button class="btn btn-primary" type="submit" id="">返回</button>
-				</div>
-				</div>
 		</div>
 		<hr>
   </body>
