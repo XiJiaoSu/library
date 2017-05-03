@@ -20,7 +20,7 @@
 	<select id="login" parameterType="com.library.pojo.User" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List"/>
-		FROM T_User
+		FROM t_user
 		where username=#{username}  
 		and 
 		password = #{password}
@@ -30,17 +30,17 @@
 		parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List"/>
-		from T_User
+		from t_user
 		where id = #{id,jdbcType=VARCHAR}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from T_User
+		delete from t_user
 		where id = #{id,jdbcType=VARCHAR}
 	</delete>
 
 	<insert id="insert" parameterType="com.library.pojo.User">
-		insert into T_User (id,
+		insert into t_user (id,
 		usename, password)
 		values (#{id,jdbcType=VARCHAR},
 		#{username,jdbcType=VARCHAR},
@@ -48,7 +48,7 @@
 	</insert>
 
 	<insert id="insertSelective" parameterType="com.library.pojo.User">
-		insert into T_User
+		insert into t_user
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null">
 				id,
@@ -73,7 +73,7 @@
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.library.pojo.User">
-		update T_User
+		update t_user
 		<set>
 			<if test="userName != null">
 				user_name = #{userName,jdbcType=VARCHAR},
@@ -86,7 +86,7 @@
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.library.pojo.User">
-		update T_User
+		update t_user
 		set
 		user_name = #{userName,jdbcType=VARCHAR},
 		password =
