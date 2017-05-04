@@ -200,7 +200,8 @@
 							<td>图书馆的层数:</td><td><input type="text" name="level" /></td>
 						</tr>
 					</table>
-					<div><button class="btn btn-primary" type="submit" id="addData">添加</button>
+					<div>
+						<button class="btn btn-primary" type="submit" id="addData">添加</button>
 						<button class="btn btn-primary" type="button" id="return">返回</button>
 					</div>
 				</div>
