@@ -403,7 +403,8 @@ $(function(){
 			{"id":"9","name":"查询座位信息","parentId":"2","url":"showSeat.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 		]},
 		{"id":"3","name":"预约记录管理","parentId":"3","url":"","icon":"&#xe607;","order":"1","isHeader":"0","childMenus":[
-			{"id":"10","name":"查询预约记录","parentId":"3","url":"book.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+			{"id":"10","name":"查询预约记录","parentId":"3","url":"book.html","icon":"","order":"1","isHeader":"0","childMenus":""},
+			{"id":"10","name":"查询预约记录图表","parentId":"3","url":"showChart.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 		]},
 		{"id":"4","name":"系统管理","parentId":"4","url":"","icon":"&#xe607;","order":"1","isHeader":"0","childMenus":[
 		    {"id":"11","name":"管理员信息","parentId":"4","url":"admin.html","icon":"","order":"1","isHeader":"0","childMenus":""}

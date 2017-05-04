@@ -42,6 +42,10 @@ public class DefaultController {
 	public String gtoIndex() {
 		return "showLibrary";
 	}
+	@RequestMapping(value = "/showChart")
+	public String htoIndex() {
+		return "showChart";
+	}
 	@RequestMapping(value="/main")
 	public String main() throws Exception{
 		return "main";
