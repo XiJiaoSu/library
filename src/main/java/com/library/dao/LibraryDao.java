@@ -1,6 +1,9 @@
 package com.library.dao;
 
+import java.util.List;
+
 import com.library.pojo.Library;
+import com.library.pojo.User;
 
 public interface LibraryDao {
 
@@ -25,5 +28,13 @@ public interface LibraryDao {
 	 * @throws Exception
 	 */
 	public Library selectLibraryById(String id)throws Exception;
+	
+	/**
+	 * 查询多个图书馆
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Library> selectLibrarys()throws Exception;
+	
 	
 }

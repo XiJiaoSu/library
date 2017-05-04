@@ -37,6 +37,10 @@
 		from t_library
 		where id=#{id}
 	</select>
+	<select id="selectLibrarys"  resultMap="LibraryResult">
+		select <include refid="Base_SQl" />	
+		from t_library
+	</select>
 
 	<insert id="insertLibrary" parameterType="com.library.pojo.Library">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">

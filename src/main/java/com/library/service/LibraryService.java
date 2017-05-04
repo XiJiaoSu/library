@@ -1,6 +1,9 @@
 package com.library.service;
 
+import java.util.List;
+
 import com.library.pojo.Library;
+import com.library.pojo.User;
 
 public interface LibraryService {
 
@@ -20,5 +23,8 @@ public interface LibraryService {
 	 * @throws Exception
 	 */
 	public Library selectLibraryById(String id)throws Exception;
+	
+	
+	public List<Library> getLibrarys()throws Exception;
 	
 }

@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.library.pojo.Library;
+import com.library.pojo.User;
+import com.library.pojo.json.JsonList;
 import com.library.pojo.json.JsonObject;
 import com.library.service.LibraryService;
 
@@ -40,6 +42,12 @@ public class LibraryController {
 	public JsonObject getLibraryById(@RequestBody String id)throws Exception{
 		Library library=libraryService.selectLibraryById(id);
 		return new JsonObject(library);
+	}
+	
+	@RequestMapping(value="list")
+	public JsonList<Library> getLibrarys()throws Exception{
+		
+		return new JsonList<Library>(libraryService.getLibrarys());
 	}
 	
 }
