@@ -27,19 +27,20 @@
 		var List = [];
 		function init(){
 			var data={
-					"id":"123123123"
+					
 			};
 			var obj={
 					type:"post",
-					url:"${basePath}/library/get",
+					url:"${basePath}library/list",
 					data:JSON.stringify(data),
 					dataTpye:"json",
 					contentType:"application/json"
 					};
 			$.ajax(obj).done(function(res){
 				$("#resultList").empty();
-				//for(var i=0;i<res.length;i++){
-					var u = res;
+				var list = res.result;
+				for(var i=0;i<list.length;i++){
+					var u = list[i];
 					$("<tr>").append($("<th>").text(u.id))
 					.append($("<th>").text(u.name))
 					.append($("<th>").text(u.address))
@@ -49,14 +50,15 @@
 					.append($("<th>").text(u.isOpen))
 					.append($("<th>").text(u.level))
 					.appendTo($("#resultList"));
-				//}
+				}
 			});
 		}
 		
 		function selectLibrary() {
 			$.ajax({
 				type:"post",
-				url:"${basePath}",
+				url:"${basePath}library/list",
+				contentType:"application/json",
 				cache : false,
 				async : false,
 				success : function(data) {
@@ -64,7 +66,7 @@
 					 $('#select').empty();
 			         $('#select').append("<option >--请选择图书馆信息--</option>");  
 			            for(var i in list){
-			                $('#select').append("<option value='"+list[i].cId+"'>"+list[i].name+"</option>");  
+			                $('#select').append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");  
 			            }
 			            var selType = document.getElementById("select").options;
 			            for (var i = 0; i < selType.length; i++) {
@@ -118,7 +120,10 @@
 				if(res.code == -1){
 					alert("添加失败");
 				}else{
-					alert("添加成功");
+					selectLibrary();
+					init();
+					$("div[name=result]").show();
+					$("div[name=register]").hide();
 				}
 			}
 			$("#add").on("click",function(){
@@ -137,7 +142,7 @@
 	</script>
   </head>
   
-  <body onload="init();">
+  <body onload="selectLibrary();init();">
 		<div width="100%" align="center"><h3>图书馆信息列表</h3></div>
 		<hr>
 		<div align="right">
