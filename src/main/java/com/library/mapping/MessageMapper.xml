@@ -28,9 +28,7 @@
 		select <include refid="Base_SQL" />
 		from t_msg 
 		where 
-		title=#{title} 
-		and 
-		time=#{time}
+		title=#{title}
 	</select>
 	
 	<select id="queryAll" resultMap="MessageResult">
