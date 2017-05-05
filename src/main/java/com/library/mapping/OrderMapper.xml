@@ -3,8 +3,81 @@
 <mapper namespace="com.library.dao.OrderDao">
 
 	<resultMap type="OrderBean" id="OrderResult">
+		<id column="code" jdbcType="VARCHAR" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="otime" jdbcType="TIMESTAMP" property="orderTime"/>
+		<result column="stime" jdbcType="TIMESTAMP" property="confirmTime"/>
+		<result column="sid" jdbcType="VARCHAR" property="sid"/>
+		<result column="uid" jdbcType="VARCHAR" property="uid"/>
+		<result column="description" jdbcType="VARCHAR" property="description"/>
+		
 	</resultMap>
 
+	<sql id="Base_SQL">
+		code,name,otime,stime,sid,uid,description
+	</sql>
+	
+	<sql id="Insert_SQL">
+		(code,name,otime,stime,sid,uid,description)
+	</sql>
+	
+	<select id="selectOrderById" parameterType="string" resultMap="OrderResult">
+		select <include refid="Base_SQL"/> 
+		from t_order
+		where 
+		code=#{id}
+	</select>
+	
+	<select id="queryAll" resultMap="OrderResult">
+		select <include refid="Base_SQL"/> 
+		from t_order
+	</select>
+	
+	<select id="selectOrder" parameterType="OrderBean" resultMap="OrderResult">
+		select <include refid="Base_SQL"/> 
+		from t_order
+		where 
+		sid=#{sid} 
+		and 
+		uid=#{uid}
+		and 
+		otime=#{orderTime}
+		
+	</select>
+	
+	<select id="queryOrdersByUId" parameterType="string" resultMap="OrderResult">
+		select <include refid="Base_SQL"/> 
+		from t_order 
+		where 
+		uid=#{uid}
+	</select>
 
+	
+	<insert id="insertOrder" parameterType="OrderBean">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual
+		</selectKey>
 
+		insert into t_order
+			<include refid="Insert_SQL" />
+		values
+			(
+			#{id,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{orderTime,jdbcType=TIMESTAMP},
+			#{confirmTime,jdbcType=TIMESTAMP},
+			#{sid,jdbcType=VARCHAR},
+			#{uid,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR}
+			)
+	</insert>
+	
+	<update id="updateConfirmTime" parameterType="OrderBean" >
+		update t_order set stime=#{confirmTime} 
+		where 
+		code=#{id}
+		and 
+		uid=#{uid}
+	</update>
+	
 </mapper>

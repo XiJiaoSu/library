@@ -11,10 +11,10 @@ public class Order implements PTResult{
 	private Date orderTime;//下单时间
 	private Date confirmTime;//确定时间
 	
-	private String uId;//用户id
-	private String sId;//座位id
+	private String uid;//用户id
+	private String sid;//座位id
 	
-	private User user;//用户
+//	private User user;//用户
 	
 	private String description;//描述信息
 
@@ -50,13 +50,13 @@ public class Order implements PTResult{
 		this.confirmTime = confirmTime;
 	}
 
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
+//	public User getUser() {
+//		return user;
+//	}
+//
+//	public void setUser(User user) {
+//		this.user = user;
+//	}
 
 	public String getDescription() {
 		return description;
@@ -66,20 +66,26 @@ public class Order implements PTResult{
 		this.description = description;
 	}
 
-	public String getuId() {
-		return uId;
+	public String getUid() {
+		return uid;
 	}
 
-	public void setuId(String uId) {
-		this.uId = uId;
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
-	public String getsId() {
-		return sId;
+	public String getSid() {
+		return sid;
 	}
 
-	public void setsId(String sId) {
-		this.sId = sId;
+	public void setSid(String sid) {
+		this.sid = sid;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "Order [id=" + id + ", name=" + name + ", orderTime=" + orderTime + ", confirmTime=" + confirmTime
+				+ ", uid=" + uid + ", sid=" + sid + ", description=" + description + "]";
+	}
+
 }

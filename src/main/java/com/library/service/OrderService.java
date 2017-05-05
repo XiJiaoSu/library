@@ -1,6 +1,7 @@
 package com.library.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.library.pojo.Order;
 
@@ -11,7 +12,7 @@ public interface OrderService {
 	 * @return
 	 * @throws Exception
 	 */
-	public Order insertOrder()throws Exception;
+	public Order insertOrder(Order order)throws Exception;
 	
 	/**
 	 * 查询某人预定记录
@@ -28,5 +29,9 @@ public interface OrderService {
 	 * @throws Exception
 	 */
 	public Order selectOrderById(String id)throws Exception;
+	
+	public List<Order> queryOrders()throws Exception;
+
+	public Order confirmOrder(Map<String, String> param)throws Exception;
 	
 }

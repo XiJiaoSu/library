@@ -1,15 +1,18 @@
 package com.library.pojo;
 
+import org.apache.ibatis.type.Alias;
+
 /**
  * 座位
  *
  */
+@Alias("SeatBean")
 public class Seat implements PTResult{
 
 	private String id;//座位id
 	private String name;//座位名
 	private int state;//当前座位状态
-	private String lId;//图书馆
+	private String pid;//图书馆
 	private int level;//所在楼层
 	
 	private String description;//描述
@@ -38,14 +41,6 @@ public class Seat implements PTResult{
 		this.state = state;
 	}
 
-	public String getlId() {
-		return lId;
-	}
-
-	public void setlId(String lId) {
-		this.lId = lId;
-	}
-
 	public int getLevel() {
 		return level;
 	}
@@ -61,6 +56,21 @@ public class Seat implements PTResult{
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public String getPid() {
+		return pid;
+	}
+
+	public void setPid(String pid) {
+		this.pid = pid;
+	}
+
+	@Override
+	public String toString() {
+		return "Seat [id=" + id + ", name=" + name + ", state=" + state + ", pid=" + pid + ", level=" + level
+				+ ", description=" + description + "]";
+	}
+
 	
 	
 	

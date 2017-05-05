@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.library.dao.SeatDao">
+
+	<resultMap type="SeatBean" id="SeatResult">
+		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="state" jdbcType="INTEGER" property="state"/>
+		<result column="lid" jdbcType="VARCHAR" property="pid"/>
+		<result column="description" jdbcType="VARCHAR" property="description"/>
+		<result column="level" jdbcType="INTEGER" property="level"/>
+	
+	</resultMap>
+
+	<sql id="Base_SQL">
+		id,name,state,lid,description,level
+	</sql>
+
+	<sql id="Insert_SQL">
+		(id,name,state,lid,description,level)
+	</sql>
+
+	<select id="selectOrderById" parameterType="string" resultMap="SeatResult">
+		select <include refid="Base_SQL" />
+		from t_seat 
+		where 
+		id=#{id}
+	</select>
+	
+	<select id="selectSeat" parameterType="SeatBean" resultMap="SeatResult">
+		select <include refid="Base_SQL" />
+		from t_seat 
+		where 
+		name=#{name} and lid=#{pid}
+	</select>
+	
+	<select id="queryAll" resultMap="SeatResult">
+		select <include refid="Base_SQL" />
+		from t_seat 
+	</select>
+	
+	<select id="selectLevleSeats" parameterType="Map" resultMap="SeatResult">
+		select <include refid="Base_SQL" />
+		from t_seat 
+		where 
+		lid=#{pid}
+		and 
+		level=#{level}
+	</select>
+	
+	<insert id="insertSeat" parameterType="SeatBean">
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual
+		</selectKey>
+
+		insert into t_seat
+			<include refid="Insert_SQL" />
+		values
+			(
+			#{id,jdbcType=VARCHAR},
+			#{name,jdbcType=VARCHAR},
+			#{state,jdbcType=INTEGER},
+			#{pid,jdbcType=VARCHAR},
+			#{description,jdbcType=VARCHAR},
+			#{level,jdbcType=INTEGER}
+			)
+		</insert>
+
+</mapper>
