@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.library.dao.LibraryDao;
 import com.library.pojo.Library;
-import com.library.pojo.User;
 import com.library.service.LibraryService;
 
 @Service("libraryService")
