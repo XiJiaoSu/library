@@ -40,7 +40,8 @@ public class LibraryController {
 	}
 	@RequestMapping(value="get")
 	public JsonObject getLibraryById(@RequestBody String id)throws Exception{
-		Library library=libraryService.selectLibraryById(id);
+		String[] result = id.split("\"");
+		Library library=libraryService.selectLibraryById(result[3]);
 		return new JsonObject(library);
 	}
 	

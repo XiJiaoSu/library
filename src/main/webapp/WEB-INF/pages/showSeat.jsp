@@ -26,42 +26,41 @@
 	<script type="text/javascript">	
 		var List = [];
 		function init(){
-			var data={
-					"id":"123123123"
-			};
 			var obj={
 					type:"post",
-					url:"${basePath}",
-					data:JSON.stringify(data),
+					url:"${basePath}seat/list",
 					dataTpye:"json",
 					contentType:"application/json"
 					};
 			$.ajax(obj).done(function(res){
 				$("#resultList").empty();
-				//for(var i=0;i<res.length;i++){
-					var u = res;
+				var list = res.result;
+				for(var i = 0; i<list.length; i++){
+					var u = list[i];
 					$("<tr>").append($("<th>").text(u.id))
 					.append($("<th>").text(u.name))
 					.append($("<th>").text(u.state))
-					.append($("<th>").text(u.lId))
+					.append($("<th>").text(u.pid))
 					.append($("<th>").text(u.level))
+					.append($("<th>").text(u.description))
 					.appendTo($("#resultList"));
-				//}
+				}
 			});
 		}
 		
 		function selectLibrary() {
 			$.ajax({
 				type:"post",
-				url:"${basePath}",
+				url:"${basePath}seat/list",
+				contentType:"application/json",
 				cache : false,
 				async : false,
 				success : function(data) {
 					var list=data.result;
 					 $('#select').empty();
-			         $('#select').append("<option >--请选择图书馆信息--</option>");  
+			         $('#select').append("<option value='"+1+"'>--请选择信息--</option>");  
 			            for(var i in list){
-			                $('#select').append("<option value='"+list[i].cId+"'>"+list[i].name+"</option>");  
+			                $('#select').append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");  
 			            }
 			            var selType = document.getElementById("select").options;
 			            for (var i = 0; i < selType.length; i++) {
@@ -70,35 +69,22 @@
 				}
 			});
 		}
-		
-		function Search() {
-        	var txtSearch = document.getElementById("txtSearch");
-            var selectContent = document.getElementById("select").options;
-        	var Html = "";
-            if (!(txtSearch.value.length < 1)) {
-            	selectContent.length = 0;
-                for (var i = 0; i < List.length; i++) {
-                    if (List[i].indexOf(txtSearch.value) > -1) {
-                    	selectContent.add(new Option(List[i].split(":")[1], List[i].split(":")[0]));
-                    }
-                }
-            }else{
-            	selectLibrary();
-            }
-        };
-        
-        $(function(){
-			$("#add").on("click",function(){
+
+		$(function(){
+			$("#addData").on("click",function(){
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
 				var data={
-						"Sel_XNXQ":$("select[name=Sel_XNXQ]").val(),
-						"Sel_JS":$("select[name=Sel_JS]").val(),
-						"txt_yzm":$("input[name=txt_yzm]").val()
+						"id":$("input[name=id]").val(),
+						"name":$("input[name=name]").val(),
+						"state":$("input[name=state]").val(),
+						"pid":$("input[name=pid]").val(),
+						"level":$("input[name=level]").val(),
+						"description":$("input[name=description]").val(),
 						};
 				var obj={
 						type:"POST",
-						url:"${basePath}",
+						url:"${basePath}seat/add",
 						data:JSON.stringify(data),
 						dataTpye:"json",
 						contentType:"application/json"
@@ -108,12 +94,57 @@
 				});
 			});
 			function createTableImg(res){
-				if(res.code == -1){
-					
-				}else{
-					
-				}
+				
+					selectLibrary();
+					init();
+					$("div[name=result]").show();
+					$("div[name=register]").hide();
+				
 			}
+			$("#add").on("click",function(){
+				$("div[name=result]").hide();
+				$("div[name=register]").show();
+			});
+			$("#return").on("click",function(){
+				$("div[name=result]").show();
+				$("div[name=register]").hide();
+			});
+			$("#Search").on("click",function(){
+				$("div[name=result]").show();
+				$("div[name=register]").hide();
+				if($("select[name=Sel_Library]").val() == 1){
+					init();
+				}else{
+					var data={
+							"id":$("select[name=Sel_Library]").val()
+							};
+						var obj={
+							type:"POST",
+							url:"${basePath}seat/get",
+							data:JSON.stringify(data),
+							dataTpye:"json",
+							contentType:"application/json"
+							};
+					$.ajax(obj).done(function(res){
+						if(res.code == -1){
+							alert("操作失败");
+						}else{
+							$("#resultList").empty();
+							var list = res.result;
+								var u = list;
+								$("<tr>").append($("<th>").text(u.id))
+								.append($("<th>").text(u.name))
+								.append($("<th>").text(u.address))
+								.append($("<th>").text(u.start))
+								.append($("<th>").text(u.end))
+								.append($("<th>").text(u.description))
+								.append($("<th>").text(u.isOpen))
+								.append($("<th>").text(u.level))
+								.appendTo($("#resultList"));
+						}
+					});
+				}
+			});
 		});
 		
 	</script>
@@ -123,13 +154,10 @@
 		<div width="100%" align="center"><h3>座位信息列表</h3></div>
 		<hr>
 		<div align="right">
-			图书馆名称
-			<input type="text" id="txtSearch" onchange="Search()"/>
+			座位名称
 			<select name="Sel_Library" id="select""></select>
 			<button class="btn btn-primary" type="submit" id="Search">查询座位</button>
 			<button class="btn btn-primary" type="submit" id="add">添加座位</button>
-			<button class="btn btn-primary" type="submit" id="">修改座位</button>
-			<button class="btn btn-primary" type="submit" id="">删除座位</button>
 		</div>
 		<hr>
 		<div style="width:100%; height: 100%;">
@@ -143,6 +171,7 @@
 								<th>当前座位状态</th>
 								<th>图书馆名称</th>
 								<th>所在楼层</th>
+								<th>描述</th>
 							</tr>
 						</thead>
 						<tbody id="resultList"></tbody>
@@ -154,20 +183,23 @@
 				<hr>
 				<table class="table table-striped" style="width: 40%;text-align: center">
 					<tr>
-						<td>座位名称:</td><td><input type="text" id="" /></td>
+						<td>座位名称:</td><td><input type="text" name="name" /></td>
 					</tr>
 					<tr>
-						<td>当前座位状态:</td><td><input type="text" id="" /></td>
+						<td>当前座位状态:</td><td><input type="text" name="state" /></td>
 					</tr>
 					<tr>
-						<td>图书馆名称:</td><td><input type="text" id="" /></td>
+						<td>图书馆名称:</td><td><input type="text" name="lname" /></td>
 					</tr>
 					<tr>
-						<td>所在楼层:</td><td><input type="text" id="" /></td>
+						<td>所在楼层:</td><td><input type="text" name="level" /></td>
+					</tr>
+					<tr>
+						<td>描述:</td><td><input type="text" name="description" /></td>
 					</tr>
 				</table>
-				<div><button class="btn btn-primary" type="submit" id="">添加</button>
-					<button class="btn btn-primary" type="submit" id="">返回</button>
+				<div><button class="btn btn-primary" type="submit" id="addData">添加</button>
+					<button class="btn btn-primary" type="submit" id="return">返回</button>
 				</div>
 				</div>
 		</div>

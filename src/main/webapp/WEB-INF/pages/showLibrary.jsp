@@ -26,13 +26,9 @@
 	<script type="text/javascript">	
 		var List = [];
 		function init(){
-			var data={
-					
-			};
 			var obj={
 					type:"post",
 					url:"${basePath}library/list",
-					data:JSON.stringify(data),
 					dataTpye:"json",
 					contentType:"application/json"
 					};
@@ -64,7 +60,7 @@
 				success : function(data) {
 					var list=data.result;
 					 $('#select').empty();
-			         $('#select').append("<option >--请选择图书馆信息--</option>");  
+			         $('#select').append("<option value='"+1+"'>--请选择图书馆信息--</option>");  
 			            for(var i in list){
 			                $('#select').append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");  
 			            }
@@ -75,23 +71,7 @@
 				}
 			});
 		}
-		
-		function Search() {
-        	var txtSearch = document.getElementById("txtSearch");
-            var selectContent = document.getElementById("select").options;
-        	var Html = "";
-            if (!(txtSearch.value.length < 1)) {
-            	selectContent.length = 0;
-                for (var i = 0; i < List.length; i++) {
-                    if (List[i].indexOf(txtSearch.value) > -1) {
-                    	selectContent.add(new Option(List[i].split(":")[1], List[i].split(":")[0]));
-                    }
-                }
-            }else{
-            	selectLibrary();
-            }
-        };
-		
+
         $(function(){
 			$("#addData").on("click",function(){
 				$("div[name=result]").hide();
@@ -118,7 +98,7 @@
 			});
 			function createTableImg(res){
 				if(res.code == -1){
-					alert("添加失败");
+					alert("操作失败");
 				}else{
 					selectLibrary();
 					init();
@@ -137,6 +117,38 @@
 			$("#Search").on("click",function(){
 				$("div[name=result]").show();
 				$("div[name=register]").hide();
+				if($("select[name=Sel_Library]").val() == 1){
+					init();
+				}else{
+					var data={
+							"id":$("select[name=Sel_Library]").val()
+							};
+						var obj={
+							type:"POST",
+							url:"${basePath}/library/get",
+							data:JSON.stringify(data),
+							dataTpye:"json",
+							contentType:"application/json"
+							};
+					$.ajax(obj).done(function(res){
+						if(res.code == -1){
+							alert("操作失败");
+						}else{
+							$("#resultList").empty();
+							var list = res.result;
+								var u = list;
+								$("<tr>").append($("<th>").text(u.id))
+								.append($("<th>").text(u.name))
+								.append($("<th>").text(u.address))
+								.append($("<th>").text(u.start))
+								.append($("<th>").text(u.end))
+								.append($("<th>").text(u.description))
+								.append($("<th>").text(u.isOpen))
+								.append($("<th>").text(u.level))
+								.appendTo($("#resultList"));
+						}
+					});
+				}
 			});
 		});
 	</script>
@@ -147,12 +159,9 @@
 		<hr>
 		<div align="right">
 			图书馆名称
-			<input type="text" id="txtSearch" onchange="Search()"/>
 			<select name="Sel_Library" id="select""></select>
-			<button class="btn btn-primary" type="button" id="Search" onclick="init();">查询</button>
+			<button class="btn btn-primary" type="button" id="Search">查询</button>
 			<button class="btn btn-primary" type="button" id="add">添加数据</button>
-			<button class="btn btn-primary" type="button" id="update">修改数据</button>
-			<button class="btn btn-primary" type="button" id="delete">删除数据</button>
 		</div>
 		<hr>
 		<div style="width:100%; height: 100%;">
