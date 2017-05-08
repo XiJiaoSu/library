@@ -43,13 +43,17 @@ public class OrderController {
 		order.setConfirmTime(new Date(System.currentTimeMillis()-10*1000));
 		order.setSid(param.get("sid"));
 		order.setUid(param.get("uid"));
+		order.setName(System.currentTimeMillis()+"");
 		return new JsonObject(orderService.insertOrder(order));
 	}
 	
 	@RequestMapping("confirm")
 	public JsonObject confirmOrder(@RequestBody Map<String,String> param)throws Exception{
-		orderService.confirmOrder(param);
-		return new JsonObject();
+		Order order=new Order();
+		order.setSid(param.get("sid"));
+		order.setUid(param.get("uid"));
+		order.setConfirmTime(new Date(System.currentTimeMillis()));
+		return new JsonObject(orderService.confirmOrder(order));
 	}
 	
 }

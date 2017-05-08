@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import com.library.dao.OrderDao;
+import com.library.exception.entity.BaseException;
 import com.library.pojo.Order;
 import com.library.service.OrderService;
 
@@ -41,10 +42,15 @@ public class OrderServiceImp implements OrderService {
 		return orderDao.queryAll();
 	}
 	
-	public Order confirmOrder(Map<String,String> param)throws Exception{
-		Order order=orderDao.selectOrderById(param.get("oid"));
-		order.setConfirmTime(new Date(System.currentTimeMillis()));
+	public Order confirmOrder(Order order)throws Exception{
+		order=orderDao.selectOrderByUidAndSid(order);
+		if (order==null) {
+			throw new BaseException("您未预定/超时");
+		}
+		System.out.println(order);
+//		order.setConfirmTime(new Date(System.currentTimeMillis()));
 		orderDao.updateConfirmTime(order);
+		order.setState(1);
 		return order;
 	}
 }

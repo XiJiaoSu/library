@@ -6,19 +6,19 @@
 		<id column="code" jdbcType="VARCHAR" property="id"/>
 		<result column="name" jdbcType="VARCHAR" property="name"/>
 		<result column="otime" jdbcType="TIMESTAMP" property="orderTime"/>
-		<result column="stime" jdbcType="TIMESTAMP" property="confirmTime"/>
+		<result column="ctime" jdbcType="TIMESTAMP" property="confirmTime"/>
 		<result column="sid" jdbcType="VARCHAR" property="sid"/>
 		<result column="uid" jdbcType="VARCHAR" property="uid"/>
 		<result column="description" jdbcType="VARCHAR" property="description"/>
-		
+		<result column="state" jdbcType="INTEGER" property="state"/>
 	</resultMap>
 
 	<sql id="Base_SQL">
-		code,name,otime,stime,sid,uid,description
+		code,name,otime,ctime,sid,uid,description,state
 	</sql>
 	
 	<sql id="Insert_SQL">
-		(code,name,otime,stime,sid,uid,description)
+		(code,name,otime,ctime,sid,uid,description,state)
 	</sql>
 	
 	<select id="selectOrderById" parameterType="string" resultMap="OrderResult">
@@ -34,6 +34,19 @@
 	</select>
 	
 	<select id="selectOrder" parameterType="OrderBean" resultMap="OrderResult">
+	select <include refid="Base_SQL"/> 
+		from t_order
+		where 
+		sid=#{sid} 
+		and 
+		uid=#{uid}
+		and 
+		name=#{name}
+		and
+		state=0
+	</select>
+	
+	<select id="selectOrderByUidAndSid" parameterType="OrderBean" resultMap="OrderResult">
 		select <include refid="Base_SQL"/> 
 		from t_order
 		where 
@@ -41,8 +54,11 @@
 		and 
 		uid=#{uid}
 		and 
-		otime=#{orderTime}
-		
+		DATE_FORMAT(#{confirmTime},'yyyy-MM-dd hh24:mi:ss')-DATE_FORMAT(otime,'yyyy-MM-dd hh24:mi:ss')&gt;-1
+		and
+		DATE_FORMAT(#{confirmTime},'yyyy-MM-dd hh24:mi:ss')-DATE_FORMAT(otime,'yyyy-MM-dd hh24:mi:ss')&lt;10  
+		and
+		state=0
 	</select>
 	
 	<select id="queryOrdersByUId" parameterType="string" resultMap="OrderResult">
@@ -68,12 +84,13 @@
 			#{confirmTime,jdbcType=TIMESTAMP},
 			#{sid,jdbcType=VARCHAR},
 			#{uid,jdbcType=VARCHAR},
-			#{description,jdbcType=VARCHAR}
+			#{description,jdbcType=VARCHAR},
+			#{state,jdbcType=INTEGER}
 			)
 	</insert>
 	
-	<update id="updateConfirmTime" parameterType="OrderBean" >
-		update t_order set stime=#{confirmTime} 
+	<update id="updateConfirmTime" parameterType="OrderBean">
+		update t_order set ctime=#{confirmTime} ,state=1
 		where 
 		code=#{id}
 		and 

@@ -13,6 +13,7 @@ public class Order implements PTResult{
 	
 	private String uid;//用户id
 	private String sid;//座位id
+	private int state;//预定状态,0 未确认,1确认
 	
 //	private User user;//用户
 	
@@ -58,8 +59,17 @@ public class Order implements PTResult{
 //		this.user = user;
 //	}
 
+	
 	public String getDescription() {
 		return description;
+	}
+
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 
 	public void setDescription(String description) {

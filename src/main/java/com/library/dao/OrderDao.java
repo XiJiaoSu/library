@@ -1,6 +1,7 @@
 package com.library.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.library.pojo.Order;
 
@@ -20,4 +21,5 @@ public interface OrderDao {
 	
 	public void updateConfirmTime(Order order)throws Exception;
 	
+	public Order selectOrderByUidAndSid(Order order)throws Exception;
 }

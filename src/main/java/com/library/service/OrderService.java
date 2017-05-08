@@ -32,6 +32,6 @@ public interface OrderService {
 	
 	public List<Order> queryOrders()throws Exception;
 
-	public Order confirmOrder(Map<String, String> param)throws Exception;
+	public Order confirmOrder(Order order)throws Exception;
 	
 }
