@@ -39,7 +39,7 @@
 					$("<tr>").append($("<th>").text(u.id))
 					.append($("<th>").text(u.title))
 					.append($("<th>").text(u.message))
-					.append($("<th>").text(u.time))
+					.append($("<th>").text(new Date(u.time).Format("yyyy-MM-dd HH:mm:ss")))
 					.appendTo($("#resultList"));
 				}
 			});
@@ -50,9 +50,8 @@
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
 				var data={
-						"name":$("input[name=title]").val(),
-						"message":$("input[name=message]").val(),
-						"time":$("input[name=time]").val(),
+						"title":$("input[name=title]").val(),
+						"message":$("textarea[name=message]").val(),
 						};
 				var obj={
 						type:"POST",
@@ -62,16 +61,11 @@
 						contentType:"application/json"
 						};
 				$.ajax(obj).done(function(res){
-					createTableImg(res);
-				});
-			});
-			function createTableImg(res){
-					selectSeat();
-					selectLibrary();
 					init();
 					$("div[name=result]").show();
 					$("div[name=register]").hide();
-			}
+				});
+			});
 		
 			$("#add").on("click",function(){
 				$("div[name=result]").hide();
@@ -82,6 +76,26 @@
 				$("div[name=register]").hide();
 			});
 		});
+		
+		Date.prototype.Format = function(formatStr)   
+		{   
+		    var str = formatStr;   
+		    var Week = ['日','一','二','三','四','五','六'];  
+		    str=str.replace(/yyyy|YYYY/,this.getFullYear());
+		    str=str.replace(/yy|YY/,(this.getYear() % 100)>9?(this.getYear() % 100).toString():'0' + (this.getYear() % 100));
+		    str=str.replace(/MM/,this.getMonth()>9?this.getMonth().toString():'0' + this.getMonth());
+		    str=str.replace(/M/g,this.getMonth());
+		    str=str.replace(/w|W/g,Week[this.getDay()]);
+		    str=str.replace(/dd|DD/,this.getDate()>9?this.getDate().toString():'0' + this.getDate());   
+		    str=str.replace(/d|D/g,this.getDate());
+		    str=str.replace(/hh|HH/,this.getHours()>9?this.getHours().toString():'0' + this.getHours());   
+		    str=str.replace(/h|H/g,this.getHours());
+		    str=str.replace(/mm/,this.getMinutes()>9?this.getMinutes().toString():'0' + this.getMinutes());   
+		    str=str.replace(/m/g,this.getMinutes());
+		    str=str.replace(/ss|SS/,this.getSeconds()>9?this.getSeconds().toString():'0' + this.getSeconds());   
+		    str=str.replace(/s|S/g,this.getSeconds());
+		    return str;   
+		}
 	</script>
   </head>
   
@@ -116,15 +130,12 @@
 						<td>消息标题:</td><td><input type="text" name="title" /></td>
 					</tr>
 					<tr>
-						<td>消息内容:</td><td><input type="text" name="message" /></td>
-					</tr>
-					<tr>
-						<td>发布时间:</td>
-						<td><input type="text" name="time"/></td>
+						<td>消息内容:</td><td><textarea rows="10" cols="50" name="message"></textarea></td>
 					</tr>
 				</table>
-				<div><button class="btn btn-primary" type="submit" id="addData">添加</button>
-					 <button class="btn btn-primary" type="submit" id="return">返回</button>
+				<div>
+					<button class="btn btn-primary" type="submit" id="addData">添加</button>
+					<button class="btn btn-primary" type="submit" id="return">返回</button>
 				</div>
 			</div>
 		</div>
