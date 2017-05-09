@@ -37,10 +37,17 @@
 				var list = res.result;
 				for(var i = 0; i<list.length; i++){
 					var u = list[i];
+					var result;
+					var selType = document.getElementById("selectLibrary").options;
+		            for (var j = 0; j < selType.length; j++) {
+		            	if(selType[j].value == u.pid){
+		            		result = selType[j].text;
+		            	}
+		            }
 					$("<tr>").append($("<th>").text(u.id))
 					.append($("<th>").text(u.name))
 					.append($("<th>").text(u.state))
-					.append($("<th>").text(u.pid))
+					.append($("<th>").text(result))
 					.append($("<th>").text(u.level))
 					.append($("<th>").text(u.description))
 					.appendTo($("#resultList"));
@@ -48,7 +55,7 @@
 			});
 		}
 		
-		function selectLibrary() {
+		function selectSeat() {
 			$.ajax({
 				type:"post",
 				url:"${basePath}seat/list",
@@ -58,13 +65,27 @@
 				success : function(data) {
 					var list=data.result;
 					 $('#select').empty();
-			         $('#select').append("<option value='"+1+"'>--请选择信息--</option>");  
+			         $('#select').append("<option value='"+1+"'>--请选择座位信息--</option>");  
 			            for(var i in list){
 			                $('#select').append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");  
 			            }
-			            var selType = document.getElementById("select").options;
-			            for (var i = 0; i < selType.length; i++) {
-			                List[i] = selType[i].value + ":" + selType[i].text;
+				}
+			});
+		}
+		
+		function selectLibrary() {
+			$.ajax({
+				type:"post",
+				url:"${basePath}library/list",
+				contentType:"application/json",
+				cache : false,
+				async : false,
+				success : function(data) {
+					var list=data.result;
+					 $('#selectLibrary').empty();
+			         $('#selectLibrary').append("<option value='"+1+"'>--请选择图书馆信息--</option>");  
+			            for(var i in list){
+			                $('#selectLibrary').append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");  
 			            }
 				}
 			});
@@ -75,10 +96,9 @@
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
 				var data={
-						"id":$("input[name=id]").val(),
 						"name":$("input[name=name]").val(),
 						"state":$("input[name=state]").val(),
-						"pid":$("input[name=pid]").val(),
+						"pid":$("select[name=Sel_Library]").val(),
 						"level":$("input[name=level]").val(),
 						"description":$("input[name=description]").val(),
 						};
@@ -94,7 +114,7 @@
 				});
 			});
 			function createTableImg(res){
-				
+					selectSeat();
 					selectLibrary();
 					init();
 					$("div[name=result]").show();
@@ -112,11 +132,11 @@
 			$("#Search").on("click",function(){
 				$("div[name=result]").show();
 				$("div[name=register]").hide();
-				if($("select[name=Sel_Library]").val() == 1){
+				if($("select[name=Sel_Seat]").val() == 1){
 					init();
 				}else{
 					var data={
-							"id":$("select[name=Sel_Library]").val()
+							"id":$("select[name=Sel_Seat]").val()
 							};
 						var obj={
 							type:"POST",
@@ -150,12 +170,12 @@
 	</script>
   </head>
   
-  <body onload="selectLibrary();init();">
+  <body onload="selectSeat();selectLibrary();init();">
 		<div width="100%" align="center"><h3>座位信息列表</h3></div>
 		<hr>
 		<div align="right">
 			座位名称
-			<select name="Sel_Library" id="select""></select>
+			<select name="Sel_Seat" id="select""></select>
 			<button class="btn btn-primary" type="submit" id="Search">查询座位</button>
 			<button class="btn btn-primary" type="submit" id="add">添加座位</button>
 		</div>
@@ -189,7 +209,8 @@
 						<td>当前座位状态:</td><td><input type="text" name="state" /></td>
 					</tr>
 					<tr>
-						<td>图书馆名称:</td><td><input type="text" name="lname" /></td>
+						<td>图书馆名称:</td>
+						<td><select name="Sel_Library" id="selectLibrary"></select></td>
 					</tr>
 					<tr>
 						<td>所在楼层:</td><td><input type="text" name="level" /></td>
@@ -201,7 +222,7 @@
 				<div><button class="btn btn-primary" type="submit" id="addData">添加</button>
 					<button class="btn btn-primary" type="submit" id="return">返回</button>
 				</div>
-				</div>
+			</div>
 		</div>
 		<hr>
   </body>
