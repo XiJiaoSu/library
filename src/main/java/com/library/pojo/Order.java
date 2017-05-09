@@ -13,7 +13,7 @@ public class Order implements PTResult{
 	
 	private String uid;//用户id
 	private String sid;//座位id
-	private int state;//预定状态,0 未确认,1确认
+	private int state=0;//预定状态,0 未确认,1确认
 	
 //	private User user;//用户
 	

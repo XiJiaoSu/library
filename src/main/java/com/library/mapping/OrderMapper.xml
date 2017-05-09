@@ -54,9 +54,9 @@
 		and 
 		uid=#{uid}
 		and 
-		DATE_FORMAT(#{confirmTime},'yyyy-MM-dd hh24:mi:ss')-DATE_FORMAT(otime,'yyyy-MM-dd hh24:mi:ss')&gt;-1
+		DATE_FORMAT(#{confirmTime},'%Y %M %d %H %i %s')-DATE_FORMAT(otime,'%Y %M %d %H %i %s')&gt;-1
 		and
-		DATE_FORMAT(#{confirmTime},'yyyy-MM-dd hh24:mi:ss')-DATE_FORMAT(otime,'yyyy-MM-dd hh24:mi:ss')&lt;10  
+		DATE_FORMAT(#{confirmTime},'%Y %M %d %H %i %s')-DATE_FORMAT(otime,'%Y %M %d %H %i %s')&lt;10  
 		and
 		state=0
 	</select>

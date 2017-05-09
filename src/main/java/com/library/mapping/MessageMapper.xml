@@ -22,6 +22,8 @@
 		from t_msg 
 		where 
 		id=#{id}
+		and 
+		DATE_FORMAT(time,'%Y %M %d %H %i %s')=DATE_FORMAT(#{time},'%Y %M %d %H %i %s')
 	</select>
 	
 	<select id="selectMessage" parameterType="MessageBean" resultMap="MessageResult">
