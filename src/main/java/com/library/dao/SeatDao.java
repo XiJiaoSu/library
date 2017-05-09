@@ -7,7 +7,7 @@ import com.library.pojo.Seat;
 
 public interface SeatDao {
 
-	public Seat selectOrderById(String id) throws Exception;
+	public Seat selectSeatById(String id) throws Exception;
 
 	public List<Seat> queryAll() throws Exception;
 
@@ -16,4 +16,6 @@ public interface SeatDao {
 	public Seat selectSeat(Seat seat) throws Exception;
 	
 	public List<Seat> selectLevleSeats(Map<String,String> param)throws Exception;
+	
+	public void updateSeatState(Seat seat)throws Exception;
 }

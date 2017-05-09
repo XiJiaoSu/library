@@ -22,4 +22,5 @@ public interface OrderDao {
 	public void updateConfirmTime(Order order)throws Exception;
 	
 	public Order selectOrderByUidAndSid(Order order)throws Exception;
+	
 }
