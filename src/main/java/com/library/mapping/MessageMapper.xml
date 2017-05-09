@@ -17,6 +17,7 @@
 		(id,title,msg,time)
 	</sql>
 
+
 	<select id="selectMessageById" parameterType="string" resultMap="MessageResult">
 		select <include refid="Base_SQL" />
 		from t_msg 
