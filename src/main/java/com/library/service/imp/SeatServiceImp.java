@@ -20,7 +20,7 @@ public class SeatServiceImp implements SeatService {
 	
 	@Override
 	public Seat getSeatById(String id) throws Exception {
-		return seatDao.selectOrderById(id);
+		return seatDao.selectSeatById(id);
 	}
 
 	@Override

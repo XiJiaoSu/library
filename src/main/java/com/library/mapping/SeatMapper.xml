@@ -20,7 +20,7 @@
 		(id,name,state,lid,description,level)
 	</sql>
 
-	<select id="selectOrderById" parameterType="string" resultMap="SeatResult">
+	<select id="selectSeatById" parameterType="string" resultMap="SeatResult">
 		select <include refid="Base_SQL" />
 		from t_seat 
 		where 
@@ -65,5 +65,11 @@
 			#{level,jdbcType=INTEGER}
 			)
 		</insert>
+
+	<update id="updateSeatState" parameterType="SeatBean">
+		update t_seat set state=#{state}
+		where 
+		id=#{id}
+	</update>
 
 </mapper>

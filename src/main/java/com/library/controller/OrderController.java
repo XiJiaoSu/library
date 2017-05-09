@@ -25,10 +25,16 @@ public class OrderController {
 	@Qualifier("orderService")
 	private OrderService orderService;
 	
+	
 	@RequestMapping("get")
 	public JsonObject getOrderById(@RequestBody String id)throws Exception{
 		return new JsonObject(orderService.selectOrderById(id));
 		
+	}
+	
+	@RequestMapping("lists")
+	public JsonList<Order> getAllOrders()throws Exception{
+		return new JsonList<Order>(orderService.queryOrders());
 	}
 	
 	@RequestMapping("list")
