@@ -30,7 +30,7 @@ public class MessageServiceImp implements MessageService {
 
 	public Message insertMessage(Message message) throws Exception {
 		messageDao.insertMessage(message);
-		return messageDao.selectMessage(message);
+		return message;
 	}
 
 }

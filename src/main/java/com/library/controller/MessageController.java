@@ -34,7 +34,8 @@ public class MessageController {
 	@RequestMapping("add")
 	public JsonObject addMessage(@RequestBody Message message) throws Exception {
 		message.setTime(new Date(System.currentTimeMillis()));
-		return new JsonObject(messageService.insertMessage(message));
+		messageService.insertMessage(message);
+		return new JsonObject();
 	}
 
 	@RequestMapping("list")
