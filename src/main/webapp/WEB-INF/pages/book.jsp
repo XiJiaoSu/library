@@ -24,21 +24,20 @@
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript">	
-		var List = [];
 		function init(){
 			var data={
 					"id":"123123123"
 			};
 			var obj={
 					type:"post",
-					url:"${basePath}",
+					url:"${basePath}order/list",
 					data:JSON.stringify(data),
 					dataTpye:"json",
 					contentType:"application/json"
 					};
 			$.ajax(obj).done(function(res){
 				$("#resultList").empty();
-				//for(var i=0;i<res.length;i++){
+				for(var i=0;i<res.length;i++){
 					var u = res;
 					$("<tr>").append($("<th>").text(u.id))
 					.append($("<th>").text(u.name))
@@ -48,87 +47,17 @@
 					.append($("<th>").text(u.sId))
 					.append($("<th>").text(u.description))
 					.appendTo($("#resultList"));
-				//}
-			});
-		}
-		
-		function selectLibrary() {
-			$.ajax({
-				type:"post",
-				url:"${basePath}",
-				cache : false,
-				async : false,
-				success : function(data) {
-					var list=data.result;
-					 $('#select').empty();
-			         $('#select').append("<option >--请选择用户信息--</option>");  
-			            for(var i in list){
-			                $('#select').append("<option value='"+list[i].cId+"'>"+list[i].name+"</option>");  
-			            }
-			            var selType = document.getElementById("select").options;
-			            for (var i = 0; i < selType.length; i++) {
-			                List[i] = selType[i].value + ":" + selType[i].text;
-			            }
 				}
 			});
 		}
-		
-		function Search() {
-        	var txtSearch = document.getElementById("txtSearch");
-            var selectContent = document.getElementById("select").options;
-        	var Html = "";
-            if (!(txtSearch.value.length < 1)) {
-            	selectContent.length = 0;
-                for (var i = 0; i < List.length; i++) {
-                    if (List[i].indexOf(txtSearch.value) > -1) {
-                    	selectContent.add(new Option(List[i].split(":")[1], List[i].split(":")[0]));
-                    }
-                }
-            }else{
-            	selectLibrary();
-            }
-        };
-        
-        $(function(){
-			$("#add").on("click",function(){
-				$("div[name=result]").hide();
-				$("div[name=register]").show();
-				var data={
-						"Sel_XNXQ":$("select[name=Sel_XNXQ]").val(),
-						"txt_yzm":$("input[name=txt_yzm]").val()
-						};
-				var obj={
-						type:"POST",
-						url:"${basePath}",
-						data:JSON.stringify(data),
-						dataTpye:"json",
-						contentType:"application/json"
-						};
-				$.ajax(obj).done(function(res){
-					createTableImg(res);
-				});
-			});
-			function createTableImg(res){
-				if(res.code == -1){
-					
-				}else{
-					
-				}
-			}
-		});
-		
 	</script>
   </head>
   
-  <body onload="selectLibrary();init();">
+  <body onload="init();">
 		<div width="100%" align="center"><h3>预约记录信息列表</h3></div>
 		<hr>
 		<div align="right">
-			用户姓名
-			<input type="text" id="txtSearch" onchange="Search()"/>
-			<select name="Sel_Library" id="select""></select>
 		</div>
-		<hr>
 		<div style="width:100%; height: 100%;">
 			<div name="result" width="100%" align="center">
 				<div>

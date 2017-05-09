@@ -26,9 +26,9 @@ public class DefaultController {
 	public String ctoIndex() {
 		return "showSeat";
 	}
-	@RequestMapping(value = "/updateSeat")
+	@RequestMapping(value = "/showMsg")
 	public String dtoIndex() {
-		return "updateSeat";
+		return "showMsg";
 	}
 	@RequestMapping(value = "/book")
 	public String etoIndex() {
