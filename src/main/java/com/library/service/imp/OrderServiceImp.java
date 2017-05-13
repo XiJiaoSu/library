@@ -74,4 +74,32 @@ public class OrderServiceImp implements OrderService {
 		seatDao.updateSeatState(seat);
 		return order;
 	}
+
+	
+	/**
+	 * 用于检测已经失效的order
+	 */
+	@Override
+	public void checkOrders() throws Exception {
+//		List<Integer> orders=orderDao.selectInvalidateTest();//获取实现的order
+//		for (Integer order : orders) {
+//			System.out.println(order);
+//		}
+		List<Order> orders=orderDao.selectInvalidateOrders();
+		for (Order order : orders) {
+			Seat seat=new Seat();
+			seat.setId(order.getSid());
+			seat.setState(0);
+			seatDao.updateSeatState(seat);
+			System.out.println(order);
+		}
+	}
+
+	@Override
+	public void checkOrders2() throws Exception {
+		List<Integer> orders=orderDao.selectInvalidateTest();//获取实现的order
+		for (Integer order : orders) {
+			System.out.println(order);
+		}
+	}
 }

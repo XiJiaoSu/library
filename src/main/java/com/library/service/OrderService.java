@@ -34,4 +34,8 @@ public interface OrderService {
 
 	public Order confirmOrder(Order order)throws Exception;
 	
+	
+	public void checkOrders()throws Exception;
+	
+	public void checkOrders2() throws Exception ;
 }

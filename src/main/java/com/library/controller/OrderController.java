@@ -1,6 +1,7 @@
 package com.library.controller;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,11 @@ public class OrderController {
 	
 	@RequestMapping("list")
 	public JsonList<Order> getOrders(@RequestBody String uid)throws Exception{
-		return new JsonList<Order>(orderService.queryOrdersByUId(uid));
+		List<Order> orders=orderService.queryOrdersByUId(uid);
+		for (Order o:orders) {
+			System.out.println(o);
+		}
+		return new JsonList<Order>(orders);
 	}
 	
 	@RequestMapping("add")
@@ -62,4 +67,10 @@ public class OrderController {
 		return new JsonObject(orderService.confirmOrder(order));
 	}
 	
+	@RequestMapping("check")
+	public JsonObject check()throws Exception{
+		orderService.checkOrders();
+		orderService.checkOrders2();
+		return new JsonObject();
+	}
 }

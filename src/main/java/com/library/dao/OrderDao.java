@@ -23,4 +23,7 @@ public interface OrderDao {
 	
 	public Order selectOrderByUidAndSid(Order order)throws Exception;
 	
+	public List<Order> selectInvalidateOrders()throws Exception;
+	public List<Integer> selectInvalidateTest()throws Exception;
+	
 }

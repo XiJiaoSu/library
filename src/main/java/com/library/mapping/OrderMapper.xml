@@ -33,6 +33,21 @@
 		from t_order
 	</select>
 	
+	<select id="selectInvalidateOrders" resultMap="OrderResult">
+		select <include refid="Base_SQL"/> 
+		from t_order
+		where 
+		time_to_sec(timediff(now(), otime))&gt;60*5
+		and 
+		state=0
+		
+	</select>
+	
+	<select id="selectInvalidateTest" resultType="Integer">
+		select time_to_sec(timediff(now(), otime)) as a
+		from t_order
+	</select>
+	
 	<select id="selectOrder" parameterType="OrderBean" resultMap="OrderResult">
 	select <include refid="Base_SQL"/> 
 		from t_order
@@ -44,6 +59,8 @@
 		name=#{name}
 		and
 		state=0
+		and 
+		DATE_FORMAT(#{now()},'%Y %M %d')-DATE_FORMAT(otime,'%Y %M %d')
 	</select>
 	
 	<select id="selectOrderByUidAndSid" parameterType="OrderBean" resultMap="OrderResult">
