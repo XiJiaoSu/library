@@ -26,4 +26,7 @@ public interface OrderDao {
 	public List<Order> selectInvalidateOrders()throws Exception;
 	public List<Integer> selectInvalidateTest()throws Exception;
 	
+	public List<Integer> countOrders(int num)throws Exception;
+//	public List<Integer> countOrders2(int num)throws Exception;
+	
 }
