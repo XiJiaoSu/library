@@ -85,6 +85,22 @@
 		uid=#{uid}
 	</select>
 
+
+	<select id="countOrders" parameterType="Integer" resultType="Integer">
+		select s from 
+			(
+			SELECT count(*) s,DATE_FORMAT(otime,'%Y%m%d') as a 
+			FROM t_order 
+			WHERE 
+			datediff(now(),otime) &lt;#{num}
+			and 
+			state=1
+			GROUP BY a 
+			order by 
+			a asc
+			) 
+			tt;
+	</select>
 	
 	<insert id="insertOrder" parameterType="OrderBean">
 		<selectKey keyProperty="id" resultType="String" order="BEFORE">

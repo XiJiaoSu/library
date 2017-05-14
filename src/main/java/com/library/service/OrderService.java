@@ -38,4 +38,7 @@ public interface OrderService {
 	public void checkOrders()throws Exception;
 	
 	public void checkOrders2() throws Exception ;
+	
+	
+	public List<Integer> statisticsOrder(int num)throws Exception;
 }

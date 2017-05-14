@@ -1,5 +1,6 @@
 package com.library.service.imp;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,5 +102,20 @@ public class OrderServiceImp implements OrderService {
 		for (Integer order : orders) {
 			System.out.println(order);
 		}
+	}
+
+	@Override
+	public List<Integer> statisticsOrder(int num) throws Exception {
+		List<Integer> lists=orderDao.countOrders(num);
+		List<Integer> res=new ArrayList<Integer>();
+		if (lists==null) {
+			lists=new ArrayList<Integer>();
+		}
+		int size=num-lists.size();
+		for (int i = 0; i < size; i++) {
+			res.add(0);
+		}
+		res.addAll(lists);
+		return res;
 	}
 }

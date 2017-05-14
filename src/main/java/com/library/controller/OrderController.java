@@ -1,5 +1,6 @@
 package com.library.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -72,5 +73,10 @@ public class OrderController {
 		orderService.checkOrders();
 		orderService.checkOrders2();
 		return new JsonObject();
+	}
+	
+	@RequestMapping("onums")
+	public JsonList<Integer> getOrderNumbers(@RequestBody Integer num)throws Exception{
+		return new JsonList<Integer>(orderService.statisticsOrder(num));
 	}
 }
