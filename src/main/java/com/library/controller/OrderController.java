@@ -76,7 +76,7 @@ public class OrderController {
 	}
 	
 	@RequestMapping("onums")
-	public JsonList<Integer> getOrderNumbers(@RequestBody Integer num)throws Exception{
-		return new JsonList<Integer>(orderService.statisticsOrder(num));
+	public JsonList<Integer> getOrderNumbers(@RequestBody Map<String,Integer> map)throws Exception{
+		return new JsonList<Integer>(orderService.statisticsOrder(map.get("num")));
 	}
 }

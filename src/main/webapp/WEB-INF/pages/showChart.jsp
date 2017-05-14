@@ -5,12 +5,25 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+		<script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
 		<script type="text/javascript" src="./js/echarts.js"></script>
 		<script type="text/javascript">
 			 // 基于准备好的dom，初始化echarts实例
 			function init() {
-				var myChart = echarts.init(document.getElementById('main'));
+					var obj={
+							type:"post",
+							url:"${basePath}order/onums",
+							data:JSON.stringify({"num":7}),
+							contentType:"application/json"
+							};
+					$.ajax(obj).done(function(res){
+						result(res.result);
+					});
 
+			}
+			 
+			function result(data) {
+				var myChart = echarts.init(document.getElementById('main'));
 				// 指定图表的配置项和数据
 				var option = {
 					title: {
@@ -30,13 +43,13 @@
 						data:['预约数量']
 					},
 					xAxis: {
-						data: ["1月","2月","3月","4月","6月","7月"]
+						data: ["1","2","3","4","5","6","7"]
 					},
 					yAxis: {},
 					series: [{
 						name: '预约数量',
 						type: 'bar',
-						data: [35, 30, 16, 10, 40, 5]
+						data: data
 					}]
 				};
 
