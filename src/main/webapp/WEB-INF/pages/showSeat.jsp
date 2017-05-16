@@ -23,6 +23,7 @@
 	<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
 	<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 	
+	<script type="text/javascript" src="./js/jquery.qrcode.min.js"></script>
 	<script type="text/javascript">	
 		var List = [];
 		function init(){
@@ -44,7 +45,7 @@
 		            		result = selType[j].text;
 		            	}
 		            }
-					$("<tr>").append($("<th>").text(u.id))
+					$("<tr>").append($("<th><a data-toggle='modal' data-target='#myModal' onclick='subgo(this)'>"+u.id+"</a>"))
 					.append($("<th>").text(u.name))
 					.append($("<th>").text(u.state))
 					.append($("<th>").text(result))
@@ -54,25 +55,7 @@
 				}
 			});
 		}
-		
-		function selectSeat() {
-			$.ajax({
-				type:"post",
-				url:"${basePath}seat/list",
-				contentType:"application/json",
-				cache : false,
-				async : false,
-				success : function(data) {
-					var list=data.result;
-					 $('#select').empty();
-			         $('#select').append("<option value='"+1+"'>--请选择座位信息--</option>");  
-			            for(var i in list){
-			                $('#select').append("<option value='"+list[i].id+"'>"+list[i].name+"</option>");  
-			            }
-				}
-			});
-		}
-		
+	
 		function selectLibrary() {
 			$.ajax({
 				type:"post",
@@ -167,16 +150,44 @@
 			});
 		});
 		
+		function subgo(str){
+			var r = toUtf8(str.text);
+			$("#code").empty();
+			$("#myModalLabel").text("座位二维码编号为："+str.text);
+			$("#code").qrcode({
+				render: "canvas",
+				width: 200,
+				height:200,
+				text: r
+			});
+		}
+		function toUtf8(str) {   
+		    var out, i, len, c;   
+		    out = "";   
+		    len = str.length; 
+		    for(i = 0; i < len; i++) {   
+		    	c = str.charCodeAt(i);   
+		    	if ((c >= 0x0001) && (c <= 0x007F)) {   
+		        	out += str.charAt(i);   
+		    	} else if (c > 0x07FF) {   
+		        	out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));   
+		        	out += String.fromCharCode(0x80 | ((c >>  6) & 0x3F));   
+		        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+		    	} else {   
+		        	out += String.fromCharCode(0xC0 | ((c >>  6) & 0x1F));   
+		        	out += String.fromCharCode(0x80 | ((c >>  0) & 0x3F));   
+		    	}   
+		    }   
+		    return out;   
+		}  
+		
 	</script>
   </head>
   
-  <body onload="selectSeat();selectLibrary();init();">
+  <body onload="selectLibrary();init();">
 		<div width="100%" align="center"><h3>座位信息列表</h3></div>
 		<hr>
 		<div align="right">
-			座位名称
-			<select name="Sel_Seat" id="select""></select>
-			<button class="btn btn-primary" type="submit" id="Search">查询座位</button>
 			<button class="btn btn-primary" type="submit" id="add">添加座位</button>
 		</div>
 		<hr>
@@ -225,5 +236,21 @@
 			</div>
 		</div>
 		<hr>
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="myModalLabel"></h4>
+			</div>
+			<div id="code" align="center"></div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+			</div>
+		</div>
+	</div>
+</div>
   </body>
 </html>
