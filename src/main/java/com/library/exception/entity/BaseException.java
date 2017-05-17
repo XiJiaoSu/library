@@ -15,6 +15,12 @@ public class BaseException extends Exception{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	
+	public BaseException(int code,String message) {
+		super(message, null);
+		this.code = code;
+	}
 
 	public BaseException(String message) {
 		super(message, null);

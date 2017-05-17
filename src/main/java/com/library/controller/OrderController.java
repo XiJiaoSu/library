@@ -1,6 +1,5 @@
 package com.library.controller;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.library.exception.entity.BaseException;
 import com.library.pojo.Order;
 import com.library.pojo.json.JsonList;
 import com.library.pojo.json.JsonObject;
@@ -56,7 +56,8 @@ public class OrderController {
 		order.setSid(param.get("sid"));
 		order.setUid(param.get("uid"));
 		order.setName(System.currentTimeMillis()+"");
-		return new JsonObject(orderService.insertOrder(order));
+		orderService.insertOrder(order);
+		return new JsonObject();
 	}
 	
 	@RequestMapping("confirm")
@@ -65,13 +66,26 @@ public class OrderController {
 		order.setSid(param.get("sid"));
 		order.setUid(param.get("uid"));
 		order.setConfirmTime(new Date(System.currentTimeMillis()));
-		return new JsonObject(orderService.confirmOrder(order));
+		order=orderService.confirmOrder(order);
+		if (order.getState()==2) {
+//			throw new BaseException(100,"您确定要取消?");
+			return new JsonObject(100,"您确定要取消?",order);
+		}
+		return new JsonObject(order);
+	}
+	
+	@RequestMapping("cancle")
+	public JsonObject cancleOrder(@RequestBody Map<String,String> param)throws Exception{
+		String oid=param.get("oid");
+		String sid=param.get("sid");
+		 orderService.cancleOrder(oid,sid);
+		return new JsonObject();
 	}
 	
 	@RequestMapping("check")
 	public JsonObject check()throws Exception{
 		orderService.checkOrders();
-		orderService.checkOrders2();
+//		orderService.checkOrders2();
 		return new JsonObject();
 	}
 	

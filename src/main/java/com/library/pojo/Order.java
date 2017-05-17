@@ -94,8 +94,8 @@ public class Order implements PTResult{
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", name=" + name + ", orderTime=" + orderTime.getTime()+":"+orderTime + ", confirmTime=" + confirmTime
-				+ ", uid=" + uid + ", sid=" + sid + ", description=" + description + "]";
+		return "Order [id=" + id + ", name=" + name + ", orderTime=" + orderTime + ", confirmTime=" + confirmTime
+				+ ", uid=" + uid + ", sid=" + sid + ", state=" + state + ", description=" + description + "]";
 	}
 
 }

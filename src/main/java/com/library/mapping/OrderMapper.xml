@@ -37,10 +37,9 @@
 		select <include refid="Base_SQL"/> 
 		from t_order
 		where 
-		time_to_sec(timediff(now(), otime))&gt;60*5
+		time_to_sec(timediff(now(), otime))&gt;60*10
 		and 
 		state=0
-		
 	</select>
 	
 	<select id="selectInvalidateTest" resultType="Integer">
@@ -71,11 +70,11 @@
 		and 
 		uid=#{uid}
 		and 
-		DATE_FORMAT(#{confirmTime},'%Y %M %d %H %i %s')-DATE_FORMAT(otime,'%Y %M %d %H %i %s')&gt;-1
+		time_to_sec(timediff(now(), otime))&gt;-1
 		and
-		DATE_FORMAT(#{confirmTime},'%Y %M %d %H %i %s')-DATE_FORMAT(otime,'%Y %M %d %H %i %s')&lt;10  
+		time_to_sec(timediff(now(), otime))&lt;60*10  
 		and
-		state=0
+		state!=2
 	</select>
 	
 	<select id="queryOrdersByUId" parameterType="string" resultMap="OrderResult">
@@ -94,7 +93,7 @@
 			WHERE 
 			datediff(now(),otime) &lt;#{num}
 			and 
-			state=1
+			state !=0
 			GROUP BY a 
 			order by 
 			a asc
@@ -128,6 +127,12 @@
 		code=#{id}
 		and 
 		uid=#{uid}
+	</update>
+	
+	<update id="cancleOrder" parameterType="string">
+		update t_order set state=2
+		where 
+		code=#{id}
 	</update>
 	
 </mapper>

@@ -24,9 +24,13 @@ public interface OrderDao {
 	public Order selectOrderByUidAndSid(Order order)throws Exception;
 	
 	public List<Order> selectInvalidateOrders()throws Exception;
+	
 	public List<Integer> selectInvalidateTest()throws Exception;
 	
 	public List<Integer> countOrders(int num)throws Exception;
 //	public List<Integer> countOrders2(int num)throws Exception;
+
+
+	public void cancleOrder(String oid)throws Exception;
 	
 }

@@ -31,18 +31,19 @@ public class OrderServiceImp implements OrderService {
 		if (seat==null) {
 			throw new BaseException("座位不存在");
 		}
-		if (seat.getState()==1) {
+		if (seat!=null&&seat.getState()==1) {
 			throw new BaseException("座位等待确认中");
-		}else if(seat.getState()==2){
+		}else if(seat!=null&&seat.getState()==2){
 			throw new BaseException("座位已经被预定");
 		}
+		System.out.println(seat);
 		orderDao.insertOrder(order);
 		System.out.println(order);
 //		Seat seat=new Seat();
 		seat.setId(order.getSid());
 		seat.setState(1);
 		seatDao.updateSeatState(seat);
-		return orderDao.selectOrder(order);
+		return null;
 	}
 
 	@Override
@@ -62,11 +63,15 @@ public class OrderServiceImp implements OrderService {
 	
 	public Order confirmOrder(Order order)throws Exception{
 		order=orderDao.selectOrderByUidAndSid(order);
+		System.out.println(order);
 		if (order==null) {
 			throw new BaseException("您未预定/超时");
 		}
-		System.out.println(order);
-//		order.setConfirmTime(new Date(System.currentTimeMillis()));
+		if (order!=null&&order.getState()==1) {
+			System.out.println(123);
+			order.setState(2);;
+			return order;
+		}
 		orderDao.updateConfirmTime(order);
 		order.setState(1);
 		Seat seat=new Seat();
@@ -82,10 +87,6 @@ public class OrderServiceImp implements OrderService {
 	 */
 	@Override
 	public void checkOrders() throws Exception {
-//		List<Integer> orders=orderDao.selectInvalidateTest();//获取实现的order
-//		for (Integer order : orders) {
-//			System.out.println(order);
-//		}
 		List<Order> orders=orderDao.selectInvalidateOrders();
 		for (Order order : orders) {
 			Seat seat=new Seat();
@@ -117,5 +118,14 @@ public class OrderServiceImp implements OrderService {
 		}
 		res.addAll(lists);
 		return res;
+	}
+
+	@Override
+	public void cancleOrder(String oid,String sid)throws Exception {
+		Seat seat=new Seat();
+		seat.setId(sid);
+		seat.setState(0);
+		seatDao.updateSeatState(seat);
+		orderDao.cancleOrder(oid);
 	}
 }
