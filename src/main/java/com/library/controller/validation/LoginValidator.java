@@ -5,4 +5,5 @@ package com.library.controller.validation;
  */
 public interface LoginValidator {
 
+	
 }
