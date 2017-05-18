@@ -17,6 +17,16 @@ public class Seat implements PTResult{
 	
 	private String description;//描述
 
+	private Library library;
+	
+	public Library getLibrary() {
+		return library;
+	}
+
+	public void setLibrary(Library library) {
+		this.library = library;
+	}
+
 	public String getId() {
 		return id;
 	}

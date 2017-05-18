@@ -18,4 +18,8 @@ public interface SeatDao {
 	public List<Seat> selectLevleSeats(Map<String,String> param)throws Exception;
 	
 	public void updateSeatState(Seat seat)throws Exception;
+
+	public void updateAllSeat() throws Exception;
+	
+	public Seat selectSeatAnLibraryById(String id) throws Exception;
 }

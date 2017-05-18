@@ -32,7 +32,13 @@
 		<if test="start!=null and start!=''">and start=#{start}</if>
 		<if test="end!=null and end!=''">and end=#{end}</if>
 	</select>
-
+	
+	<select id="getLibraryName" parameterType="string" resultType="String">
+		select name
+		from t_library
+		where id=#{id}
+	</select>
+	
 	<select id="selectLibraryById" parameterType="string" resultMap="LibraryResult">
 		select <include refid="Base_SQl" />	
 		from t_library

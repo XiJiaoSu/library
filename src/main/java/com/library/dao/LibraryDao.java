@@ -37,4 +37,6 @@ public interface LibraryDao {
 	public List<Library> selectLibrarys()throws Exception;
 	
 	
+	public String getLibraryName(String id)throws Exception;
+	
 }

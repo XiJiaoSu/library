@@ -12,6 +12,18 @@
 	
 	</resultMap>
 
+	<resultMap type="SeatBean" id="SeatResult2">
+		<id column="id" jdbcType="VARCHAR" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="state" jdbcType="INTEGER" property="state"/>
+		<result column="lid" jdbcType="VARCHAR" property="pid"/>
+		<result column="description" jdbcType="VARCHAR" property="description"/>
+		<result column="level" jdbcType="INTEGER" property="level"/>
+		<association property="library" javaType="com.library.pojo.Seat" 
+			column="lid" select="com.library.dao.LibraryDao.selectLibraryById">
+		</association>
+	</resultMap>
+
 	<sql id="Base_SQL">
 		id,name,state,lid,description,level
 	</sql>
@@ -21,6 +33,12 @@
 	</sql>
 
 	<select id="selectSeatById" parameterType="string" resultMap="SeatResult">
+		select <include refid="Base_SQL" />
+		from t_seat 
+		where 
+		id=#{id}
+	</select>
+	<select id="selectSeatAnLibraryById" parameterType="string" resultMap="SeatResult2">
 		select <include refid="Base_SQL" />
 		from t_seat 
 		where 
@@ -71,5 +89,11 @@
 		where 
 		id=#{id}
 	</update>
-
+	
+	<update id="updateAllSeat">
+		update t_seat set state=0
+		where 
+		state!=0
+	</update>
+	
 </mapper>

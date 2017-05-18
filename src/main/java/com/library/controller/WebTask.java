@@ -19,7 +19,7 @@ public class WebTask {
 	private OrderService orderService;
 	
 	// 每天6点到20点内容,每5分钟执行一次
-    @Scheduled(cron = "0 0/5 6-20 * * ?")
+    @Scheduled(cron = "0 0/5 6-22 * * ?")
     public void TaskJob1() {
         System.out.println("test second annotation style ...");
         try {
@@ -32,7 +32,13 @@ public class WebTask {
      * 每天凌晨00:01执行
      */
     @Scheduled(cron = "0 1 0 * * ?")
+//    @Scheduled(cron = "0 0/5 * * * ?")
     public void TaskJob2() {
         System.out.println("test second annotation style ...");
+        try {
+			orderService.saveOrdersInit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
     }
 }

@@ -43,4 +43,7 @@ public interface OrderService {
 	public List<Integer> statisticsOrder(int num)throws Exception;
 
 	public void cancleOrder(String oid,String sid)throws Exception;
+
+	void saveOrdersInit() throws Exception;
+	
 }

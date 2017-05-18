@@ -21,7 +21,7 @@ public interface OrderDao {
 	
 	public void updateConfirmTime(Order order)throws Exception;
 	
-	public Order selectOrderByUidAndSid(Order order)throws Exception;
+	public List<Order> selectOrderByUidAndSid(Order order)throws Exception;
 	
 	public List<Order> selectInvalidateOrders()throws Exception;
 	

@@ -56,8 +56,7 @@ public class OrderController {
 		order.setSid(param.get("sid"));
 		order.setUid(param.get("uid"));
 		order.setName(System.currentTimeMillis()+"");
-		orderService.insertOrder(order);
-		return new JsonObject();
+		return new JsonObject(orderService.insertOrder(order));
 	}
 	
 	@RequestMapping("confirm")

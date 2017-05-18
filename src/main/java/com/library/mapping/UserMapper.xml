@@ -6,32 +6,53 @@
 		<id column="id" property="id" jdbcType="VARCHAR" />
 		<result column="username" property="username" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
-		<result column="email" property="email" jdbcType="VARCHAR"/>
-		<result column="phone" property="phone" jdbcType="VARCHAR"/>
-		<result column="stuId" property="stuId" jdbcType="VARCHAR"/>
-		<result column="birth" property="birth" jdbcType="TIMESTAMP"/>
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="birth" property="birth" jdbcType="TIMESTAMP" />
 	</resultMap>
 
 	<sql id="Base_Column_List">
 		id,username,email,phone,birth
 	</sql>
+	<sql id="Insert_SQl">
+		(id,username,password,email,phone,birth)
+	</sql>
 
-<!-- 用户登陆使用的语句 -->
-	<select id="login" parameterType="com.library.pojo.User" resultMap="BaseResultMap">
+	<!-- 用户登陆使用的语句 -->
+	<select id="login" parameterType="com.library.pojo.User"
+		resultMap="BaseResultMap">
 		select
-		<include refid="Base_Column_List"/>
+		<include refid="Base_Column_List" />
 		FROM t_user
-		where username=#{username}  
-		and 
+		where username=#{username}
+		and
 		password = #{password}
 	</select>
 
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select
-		<include refid="Base_Column_List"/>
+		<include refid="Base_Column_List" />
 		from t_user
 		where id = #{id,jdbcType=VARCHAR}
+	</select>
+	<select id="selectAllUser" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_user
+	</select>
+
+	<select id="selectUser" parameterType="com.library.pojo.User"
+		resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		FROM t_user
+		where 
+		username=#{username}
+		and
+		password = #{password}
+		and
+		email=#{email}
 	</select>
 
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
@@ -45,6 +66,24 @@
 		values (#{id,jdbcType=VARCHAR},
 		#{username,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR}
+	</insert>
+
+	<insert id="insertUser" parameterType="com.library.pojo.User">
+	
+		<selectKey keyProperty="id" resultType="String" order="BEFORE">
+			select replace(uuid(),'-','') from dual
+		</selectKey>
+		insert into t_user
+		<include refid="Insert_SQl" />
+		values
+		(
+		#{id,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR},
+		#{email,jdbcType=VARCHAR},
+		#{phone,jdbcType=VARCHAR},
+		#{birth,jdbcType=TIMESTAMP}
+		)
 	</insert>
 
 	<insert id="insertSelective" parameterType="com.library.pojo.User">
@@ -81,7 +120,7 @@
 			<if test="password != null">
 				password = #{password,jdbcType=VARCHAR},
 			</if>
-			
+
 		</set>
 		where id = #{id,jdbcType=VARCHAR}
 	</update>
@@ -93,6 +132,6 @@
 		#{password,jdbcType=VARCHAR}
 		where id =
 		#{id,jdbcType=VARCHAR}
-	</update> 
-	
+	</update>
+
 </mapper>

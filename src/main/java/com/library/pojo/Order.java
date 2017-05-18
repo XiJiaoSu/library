@@ -15,8 +15,18 @@ public class Order implements PTResult{
 	private String sid;//座位id
 	private int state=0;//预定状态,0 未确认,1确认
 	
+	private Seat seat;
+	
 //	private User user;//用户
 	
+	public Seat getSeat() {
+		return seat;
+	}
+
+	public void setSeat(Seat seat) {
+		this.seat = seat;
+	}
+
 	private String description;//描述信息
 
 	public String getId() {

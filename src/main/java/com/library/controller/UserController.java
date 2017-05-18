@@ -1,5 +1,7 @@
 package com.library.controller;
 
+import java.util.Date;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -32,10 +34,8 @@ public class UserController {
 
 	@RequestMapping("showUser")
 	@ResponseBody
-	public User toIndex() throws Exception {
-		// int userId = Integer.parseInt(request.getParameter("id"));
-		User user = this.userService.getUserById("123123123");
-		return user;
+	public JsonList<User> toIndex() throws Exception {
+		return new JsonList<User>(userService.getAllUsers());
 	}
 
 	/**
@@ -59,7 +59,14 @@ public class UserController {
 		}
 		return new JsonObject(userService.login(user));
 	}
-
+	
+	@RequestMapping("register")
+	@ResponseBody
+	public JsonObject userRegister(@RequestBody User user)throws Exception{
+		user.setBirth(new Date(System.currentTimeMillis()));
+		return new JsonObject(userService.addUser(user));
+	}
+	
 	/**
 	 * 用于测试
 	 * 

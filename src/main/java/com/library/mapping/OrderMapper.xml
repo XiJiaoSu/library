@@ -13,6 +13,21 @@
 		<result column="state" jdbcType="INTEGER" property="state"/>
 	</resultMap>
 
+	<resultMap type="OrderBean" id="OrderResult2">
+		<id column="code" jdbcType="VARCHAR" property="id"/>
+		<result column="name" jdbcType="VARCHAR" property="name"/>
+		<result column="otime" jdbcType="TIMESTAMP" property="orderTime"/>
+		<result column="ctime" jdbcType="TIMESTAMP" property="confirmTime"/>
+		<result column="sid" jdbcType="VARCHAR" property="sid"/>
+		<result column="uid" jdbcType="VARCHAR" property="uid"/>
+		<result column="description" jdbcType="VARCHAR" property="description"/>
+		<result column="state" jdbcType="INTEGER" property="state"/>
+		
+		<association property="seat" javaType="com.library.pojo.Seat" 
+			column="sid" select="com.library.dao.SeatDao.selectSeatAnLibraryById">
+		</association>
+	</resultMap>
+
 	<sql id="Base_SQL">
 		code,name,otime,ctime,sid,uid,description,state
 	</sql>
@@ -30,7 +45,8 @@
 	
 	<select id="queryAll" resultMap="OrderResult">
 		select <include refid="Base_SQL"/> 
-		from t_order
+		from t_order 
+		order by otime  DESC
 	</select>
 	
 	<select id="selectInvalidateOrders" resultMap="OrderResult">
@@ -59,7 +75,7 @@
 		and
 		state=0
 		and 
-		DATE_FORMAT(#{now()},'%Y %M %d')-DATE_FORMAT(otime,'%Y %M %d')
+		time_to_sec(timediff(#{orderTime}, otime))=0
 	</select>
 	
 	<select id="selectOrderByUidAndSid" parameterType="OrderBean" resultMap="OrderResult">
@@ -74,14 +90,16 @@
 		and
 		time_to_sec(timediff(now(), otime))&lt;60*10  
 		and
-		state!=2
+		state!=2 
+		order by otime  DESC
 	</select>
 	
-	<select id="queryOrdersByUId" parameterType="string" resultMap="OrderResult">
+	<select id="queryOrdersByUId" parameterType="string" resultMap="OrderResult2">
 		select <include refid="Base_SQL"/> 
 		from t_order 
 		where 
-		uid=#{uid}
+		uid=#{uid} 
+		order by otime  DESC
 	</select>
 
 

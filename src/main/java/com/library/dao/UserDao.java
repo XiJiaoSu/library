@@ -1,5 +1,7 @@
 package com.library.dao;
 
+import java.util.List;
+
 import com.library.pojo.User;
 
 /**
@@ -36,6 +38,7 @@ public interface UserDao {
 	 * @throws Exception
 	 */
 	public User selectByPrimaryKey(String id) throws Exception;
+	public List<User> selectAllUser() throws Exception;
 
 	public int updateByPrimaryKeySelective(User record) throws Exception;
 
@@ -56,4 +59,8 @@ public interface UserDao {
 	 * @throws Exception
 	 */
 	public User login(User user) throws Exception;
+
+	public void insertUser(User user) throws Exception;
+	
+	public User selectUser(User user) throws Exception;
 }

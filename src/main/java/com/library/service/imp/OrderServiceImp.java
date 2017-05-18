@@ -43,7 +43,7 @@ public class OrderServiceImp implements OrderService {
 		seat.setId(order.getSid());
 		seat.setState(1);
 		seatDao.updateSeatState(seat);
-		return null;
+		return orderDao.selectOrder(order);
 	}
 
 	@Override
@@ -62,14 +62,15 @@ public class OrderServiceImp implements OrderService {
 	}
 	
 	public Order confirmOrder(Order order)throws Exception{
-		order=orderDao.selectOrderByUidAndSid(order);
-		System.out.println(order);
-		if (order==null) {
+		List<Order> lists=orderDao.selectOrderByUidAndSid(order);
+		if (lists==null||lists.size()==0) {
 			throw new BaseException("您未预定/超时");
 		}
+		order=lists.get(0);
+		System.out.println(order);
 		if (order!=null&&order.getState()==1) {
 			System.out.println(123);
-			order.setState(2);;
+			order.setState(2);
 			return order;
 		}
 		orderDao.updateConfirmTime(order);
@@ -127,5 +128,10 @@ public class OrderServiceImp implements OrderService {
 		seat.setState(0);
 		seatDao.updateSeatState(seat);
 		orderDao.cancleOrder(oid);
+	}
+
+	@Override
+	public void saveOrdersInit() throws Exception {
+		seatDao.updateAllSeat();
 	}
 }
