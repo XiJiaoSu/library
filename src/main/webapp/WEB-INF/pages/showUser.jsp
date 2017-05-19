@@ -37,18 +37,19 @@
 					};
 			$.ajax(obj).done(function(res){
 				$("#resultList").empty();
-				//for(var i=0;i<res.length;i++){
-					var u = res;
-					$("<tr>").append($("<th>").text(u.id))
-					.append($("<th>").text(u.username))
-					.append($("<th>").text(u.password))
-					.append($("<th>").text(u.age))
-					.append($("<th>").text(u.email))
-					.append($("<th>").text(u.birth))
-					.append($("<th>").text(u.phone))
-					.append($("<th>").text(u.stuId))
+				var list = res.result;
+				for(var i=0;i<list.length;i++){
+					var u = list;
+					$("<tr>").append($("<th>").text(u[i].id))
+					.append($("<th>").text(u[i].username))
+					.append($("<th>").text(u[i].password))
+					.append($("<th>").text(u[i].age))
+					.append($("<th>").text(u[i].email))
+					.append($("<th>").text(u[i].birth))
+					.append($("<th>").text(u[i].phone))
+					.append($("<th>").text(u[i].stuId))
 					.appendTo($("#resultList"));
-				//}
+				}
 			});
 		}
 	</script>

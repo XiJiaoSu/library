@@ -49,6 +49,7 @@
 			$("#addData").on("click",function(){
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
+				$("div[name=delete]").hide();
 				var data={
 						"title":$("input[name=title]").val(),
 						"message":$("textarea[name=message]").val(),
@@ -64,14 +65,74 @@
 					init();
 					$("div[name=result]").show();
 					$("div[name=register]").hide();
+					$("div[name=delete]").hide();
 				});
 			});
+			
+			$("#deleteData").on("click",function(){
+				$("div[name=result]").hide();
+				$("div[name=delete]").show();
+				$("div[name=register]").hide();
+				var data={
+						"id":$("select[name=Sel_Library]").val()
+						};
+				var obj={
+						type:"POST",
+						url:"${basePath}msg/",
+						data:JSON.stringify(data),
+						dataTpye:"json",
+						contentType:"application/json"
+						};
+				$.ajax(obj).done(function(res){
+					init();
+					$("div[name=result]").show();
+					$("div[name=register]").hide();
+					$("div[name=delete]").hide();
+				});
+			});
+			
+			$("#updateData").on("click",function(){
+				$("div[name=result]").hide();
+				$("div[name=delete]").show();
+				$("div[name=register]").hide();
+				var data={
+						"id":$("select[name=Sel_Library]").val()
+						};
+				var obj={
+						type:"POST",
+						url:"${basePath}msg/",
+						data:JSON.stringify(data),
+						dataTpye:"json",
+						contentType:"application/json"
+						};
+				$.ajax(obj).done(function(res){
+					init();
+					$("div[name=result]").show();
+					$("div[name=register]").hide();
+					$("div[name=delete]").hide();
+				});
+			});
+			
 		
 			$("#add").on("click",function(){
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
+				$("div[name=delete]").hide();
 			});
+			$("#delete").on("click",function(){
+				$("div[name=result]").hide();
+				$("div[name=register]").hide();
+				$("div[name=delete]").show();
+				selectMsg();
+			});
+			
 			$("#return").on("click",function(){
+				$("div[name=result]").show();
+				$("div[name=register]").hide();
+				$("div[name=delete]").hide();
+			});
+			
+			$("#return2").on("click",function(){
 				$("div[name=result]").show();
 				$("div[name=register]").hide();
 			});
@@ -96,6 +157,24 @@
 		    str=str.replace(/s|S/g,this.getSeconds());
 		    return str;   
 		}
+		
+		function selectMsg() {
+			$.ajax({
+				type:"post",
+				url:"${basePath}msg/list",
+				contentType:"application/json",
+				cache : false,
+				async : false,
+				success : function(data) {
+					var list=data.result;
+					 $('#select').empty();
+			         $('#select').append("<option value='"+1+"'>--请选择信息标题--</option>");  
+			            for(var i in list){
+			                $('#select').append("<option value='"+list[i].id+"'>"+list[i].title+"</option>");  
+			            }
+				}
+			});
+		}
 	</script>
   </head>
   
@@ -104,6 +183,7 @@
 		<hr>
 		<div align="right">
 			<button class="btn btn-primary" type="submit" id="add">添加消息</button>
+			<button class="btn btn-primary" type="submit" id="delete">管理消息</button>
 		</div>
 		<hr>
 		<div style="width:100%; height: 100%;">
@@ -136,6 +216,19 @@
 				<div>
 					<button class="btn btn-primary" type="submit" id="addData">添加</button>
 					<button class="btn btn-primary" type="submit" id="return">返回</button>
+				</div>
+			</div>
+			<div name="delete" style="display:none;" align="center">
+				<h3>管理消息</h3>	
+				<hr>
+				<div style="width: 40%;text-align: center">
+					消息标题:<select id = "select" name = "deleSelect"></select>
+				</div>
+				<hr>
+				<div>
+					<button class="btn btn-primary" type="submit" id="deleteData">删除</button>
+					<button class="btn btn-primary" type="submit" id="updateData">修改</button>
+					<button class="btn btn-primary" type="submit" id="return2">返回</button>
 				</div>
 			</div>
 		</div>
