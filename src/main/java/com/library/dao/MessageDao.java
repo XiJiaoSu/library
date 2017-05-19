@@ -39,4 +39,8 @@ public interface MessageDao {
 	 */
 	public Message selectMessage(Message message) throws Exception;
 
+	public int deleteMessage(String id)throws Exception;
+
+	public int updateMessage(Message message)throws Exception;
+
 }

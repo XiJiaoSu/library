@@ -55,5 +55,21 @@
 			#{time,jdbcType=TIMESTAMP}
 			)
 		</insert>
-
+	
+	<update id="updateMessage" parameterType="MessageBean">
+		update t_msg
+		<trim prefix="set" suffixOverrides=",">
+		  <if test="title!=null">title=#{title},</if>
+		  <if test="message!=null">msg=#{message},</if>
+		  <if test="time!=null">time=#{time},</if>
+	 	</trim>
+ 		WHERE id=#{id}
+	</update>
+	
+	<delete id="deleteMessage" parameterType="string">
+		delete from t_msg 
+		where 
+		id=#{id}
+	 </delete>
+	
 </mapper>

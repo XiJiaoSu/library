@@ -1,6 +1,7 @@
 package com.library.controller;
 
 import java.util.Date;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -43,4 +44,18 @@ public class MessageController {
 		return new JsonList<Message>(messageService.queryAll());
 	}
 
+	@RequestMapping("update")
+	public JsonObject updateMessage(@RequestBody Message message) throws Exception {
+		message.setTime(new Date(System.currentTimeMillis()));
+		messageService.updateMessage(message);
+		return new JsonObject();
+	}
+	
+	@RequestMapping("delete")
+	public JsonObject deleteMesssage(@RequestBody Map<String, String> params)throws Exception{
+		String id=params.get("id");
+		messageService.deleteMessage(id);
+		return new JsonObject();
+	}
+	
 }

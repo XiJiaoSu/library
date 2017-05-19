@@ -18,10 +18,9 @@ public class WebTask {
 	@Qualifier("orderService")
 	private OrderService orderService;
 	
-	// 每天6点到20点内容,每5分钟执行一次
+	// 每天6点到22点之间,每5分钟执行一次
     @Scheduled(cron = "0 0/5 6-22 * * ?")
     public void TaskJob1() {
-        System.out.println("test second annotation style ...");
         try {
 			orderService.checkOrders();
 		} catch (Exception e) {
@@ -34,7 +33,6 @@ public class WebTask {
     @Scheduled(cron = "0 1 0 * * ?")
 //    @Scheduled(cron = "0 0/5 * * * ?")
     public void TaskJob2() {
-        System.out.println("test second annotation style ...");
         try {
 			orderService.saveOrdersInit();
 		} catch (Exception e) {

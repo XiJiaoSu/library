@@ -33,4 +33,20 @@ public class MessageServiceImp implements MessageService {
 		return message;
 	}
 
+	@Override
+	public void deleteMessage(String id) throws Exception {
+		int a=messageDao.deleteMessage(id);
+		if (a<1) {
+			throw new BaseException("您删除的信息不存在");
+		}
+	}
+
+	@Override
+	public void updateMessage(Message message) throws Exception {
+		int a=messageDao.updateMessage(message);
+		if (a<1) {
+			throw new BaseException("您要更改的信息不存在");
+		}
+	}
+
 }

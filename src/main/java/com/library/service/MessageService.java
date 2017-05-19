@@ -32,4 +32,8 @@ public interface MessageService {
 	 */
 	public Message insertMessage(Message message) throws Exception;
 
+	public void deleteMessage(String id)throws Exception;
+
+	public void updateMessage(Message message)throws Exception;
+
 }
