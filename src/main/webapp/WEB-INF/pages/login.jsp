@@ -24,7 +24,7 @@
             <h1>图书馆座位预定管理系统</h1>
         </header>
         <div class="login-main">
-			<form action="${basePath}login" class="layui-form" method="post">
+			<form action="${basePath}login" class="layui-form" method="get">
 				<input name="__RequestVerificationToken" type="hidden" value="">                
 				<div class="layui-form-item">
 					<label class="login-icon">

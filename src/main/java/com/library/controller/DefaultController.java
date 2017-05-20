@@ -1,18 +1,44 @@
 package com.library.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.library.pojo.User;
+import com.library.service.UserService;
 
 @Controller
 public class DefaultController {
 
+	@Autowired
+	@Qualifier("userService")
+	private UserService userService;
+	
 	@RequestMapping(value = "/")
 	public String toIndex() {
 		return "login";
 	}
-	@RequestMapping(value="/login")
-	public String loign() throws Exception{
+	
+	@RequestMapping(value = "/index")
+	public String toIndex2() {
 		return "index";
+	}
+	
+	@RequestMapping("login")
+	public String adminLogin(@RequestParam(required=true,value="username")String name, @RequestParam(required=true,value="password")String password){
+		User user=new User();
+		user.setUsername(name);
+		user.setPassword(password);
+		System.out.println(user);
+		try {
+			user=userService.login(user);
+		} catch (Exception e) {
+			return "redirect:/";
+		}
+		System.out.println(user);
+		return "redirect:/index";
 	}
 	@RequestMapping(value = "/home")
 	public String atoIndex() {
