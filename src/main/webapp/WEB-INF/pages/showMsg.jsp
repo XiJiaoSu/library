@@ -96,23 +96,50 @@
 				$("div[name=delete]").show();
 				$("div[name=register]").hide();
 				var data={
-						"id":$("select[name=deleSelect]").val()
+						"id":$("select[name=deleSelect]").val(),
+						};
+				var obj={
+						type:"POST",
+						url:"${basePath}msg/get",
+						data:JSON.stringify(data),
+						dataTpye:"json",
+						contentType:"application/json"
+						};
+				$.ajax(obj).done(function(res){
+					$("textarea[name=content]").val((res.result).message);
+					$("div[name=update]").show();
+				});
+			});
+			
+			$("#RupdateData").on("click",function(){
+				update();
+				init();
+				$("div[name=result]").show();
+				$("div[name=register]").hide();
+				$("div[name=delete]").hide();
+				$("textarea[name=content]").val("");
+				$("div[name=update]").hide();
+			});
+			
+			function update() {
+				var data={
+						"id":$("select[name=deleSelect]").val(),
+						"title":$("select[name=deleSelect]").value,
+						"message":$("textarea[name=content]").val(),
 						};
 				var obj={
 						type:"POST",
 						url:"${basePath}msg/update",
 						data:JSON.stringify(data),
 						dataTpye:"json",
-						contentType:"application/json"
+						contentType:"application/json",
+						cache : false,
+						async : false,
 						};
 				$.ajax(obj).done(function(res){
-					init();
-					$("div[name=result]").show();
-					$("div[name=register]").hide();
-					$("div[name=delete]").hide();
+					
 				});
-			});
-			
+			}
 		
 			$("#add").on("click",function(){
 				$("div[name=result]").hide();
@@ -224,10 +251,16 @@
 				<hr>
 				<div style="width: 40%;text-align: center">
 					消息标题:<select id = "select" name = "deleSelect"></select>
+					<div name="update" style="display:none;" align="center">
+						消息内容:<textarea rows="10" cols="20" name = "content" id = "content"></textarea>
+						<br>
+						<button class="btn btn-primary" type="submit" id="RupdateData">提交</button>
+					</div>
 				</div>
 				<hr>
 				<div>
 					<button class="btn btn-primary" type="submit" id="deleteData">删除</button>
+					<button class="btn btn-primary" type="submit" id="updateData">修改</button>
 					<button class="btn btn-primary" type="submit" id="return2">返回</button>
 				</div>
 			</div>
