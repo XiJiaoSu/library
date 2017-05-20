@@ -27,7 +27,8 @@ public class MessageController {
 	private MessageService messageService;
 
 	@RequestMapping(value="get")
-	public JsonObject getMessageById(@RequestBody String id) throws Exception {
+	public JsonObject getMessageById(@RequestBody Map<String, String> params) throws Exception {
+		String id=params.get("id");
 		System.out.println(id);
 		return new JsonObject(messageService.selectMessageById(id));
 	}
