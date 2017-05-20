@@ -74,11 +74,11 @@
 				$("div[name=delete]").show();
 				$("div[name=register]").hide();
 				var data={
-						"id":$("select[name=Sel_Library]").val()
+						"id":$("select[name=deleSelect]").val()
 						};
 				var obj={
 						type:"POST",
-						url:"${basePath}msg/",
+						url:"${basePath}msg/delete",
 						data:JSON.stringify(data),
 						dataTpye:"json",
 						contentType:"application/json"
@@ -96,11 +96,11 @@
 				$("div[name=delete]").show();
 				$("div[name=register]").hide();
 				var data={
-						"id":$("select[name=Sel_Library]").val()
+						"id":$("select[name=deleSelect]").val()
 						};
 				var obj={
 						type:"POST",
-						url:"${basePath}msg/",
+						url:"${basePath}msg/update",
 						data:JSON.stringify(data),
 						dataTpye:"json",
 						contentType:"application/json"
@@ -135,6 +135,7 @@
 			$("#return2").on("click",function(){
 				$("div[name=result]").show();
 				$("div[name=register]").hide();
+				$("div[name=delete]").hide();
 			});
 		});
 		
@@ -227,7 +228,6 @@
 				<hr>
 				<div>
 					<button class="btn btn-primary" type="submit" id="deleteData">删除</button>
-					<button class="btn btn-primary" type="submit" id="updateData">修改</button>
 					<button class="btn btn-primary" type="submit" id="return2">返回</button>
 				</div>
 			</div>
