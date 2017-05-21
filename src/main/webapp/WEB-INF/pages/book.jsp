@@ -34,10 +34,11 @@
 				$("#resultList").empty();
 				var u = res.result;
 				for(var i=0;i<u.length;i++){
+					var text = u[i].confirmTime-u[i].orderTime<= 0 ? "失效" : new Date(u[i].confirmTime).Format("yyyy-MM-dd HH:mm:ss");
 					$("<tr>").append($("<th>").text(u[i].id))
 					.append($("<th>").text(u[i].name))
 					.append($("<th>").text(new Date(u[i].orderTime).Format("yyyy-MM-dd HH:mm:ss")))
-					.append($("<th>").text(new Date(u[i].confirmTime).Format("yyyy-MM-dd HH:mm:ss")))
+					.append($("<th>").text(text))
 					.append($("<th>").text(u[i].uid))
 					.append($("<th>").text(u[i].sid))
 					.appendTo($("#resultList"));

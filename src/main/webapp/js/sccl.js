@@ -406,8 +406,8 @@ $(function(){
 			{"id":"10","name":"查询预约记录","parentId":"3","url":"book.html","icon":"","order":"1","isHeader":"0","childMenus":""},
 			{"id":"10","name":"查询预约记录图表","parentId":"3","url":"showChart.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 		]},
-		{"id":"4","name":"系统信息","parentId":"4","url":"","icon":"&#xe607;","order":"1","isHeader":"0","childMenus":[
-		    {"id":"11","name":"系统信息管理","parentId":"4","url":"showMsg.html","icon":"","order":"1","isHeader":"0","childMenus":""}
+		{"id":"4","name":"资讯信息","parentId":"4","url":"","icon":"&#xe607;","order":"1","isHeader":"0","childMenus":[
+		    {"id":"11","name":"资讯管理","parentId":"4","url":"showMsg.html","icon":"","order":"1","isHeader":"0","childMenus":""}
 		]}
 	]}
 	];

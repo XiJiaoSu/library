@@ -174,8 +174,8 @@
 								<th>图书馆编号</th>
 								<th>图书馆名称</th>
 								<th>图书馆地址</th>
-								<th>结束时间</th>
-								<th>关门时间</th>
+								<th>开馆时间</th>
+								<th>闭馆时间</th>
 								<th>描述</th>
 								<th>是否开放</th>
 								<th>图书馆的层数</th>
@@ -195,16 +195,13 @@
 							<td>图书馆地址:</td><td><input type="text" name="address" /></td>
 						</tr>
 						<tr>
-							<td>结束时间:</td><td><input type="text" name="start" /></td>
+							<td>开馆时间:</td><td><input type="text" name="start" /></td>
 						</tr>
 						<tr>
-							<td>关门时间:</td><td><input type="text" name="end" /></td>
+							<td>闭馆时间:</td><td><input type="text" name="end" /></td>
 						</tr>
 						<tr>
 							<td>描述:</td><td><textarea rows="5" cols="22" name="description"></textarea></td>
-						</tr>
-						<tr>
-							<td>是否开放:</td><td><input type="text" name="isOpen"/></td>
 						</tr>
 						<tr>
 							<td>图书馆的层数:</td><td><input type="text" name="level" /></td>

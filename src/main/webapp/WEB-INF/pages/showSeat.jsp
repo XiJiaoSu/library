@@ -76,6 +76,7 @@
 
 		$(function(){
 			$("#addData").on("click",function(){
+				selectLibrary();
 				$("div[name=result]").hide();
 				$("div[name=register]").show();
 				var data={
