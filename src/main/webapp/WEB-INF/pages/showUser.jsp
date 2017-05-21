@@ -42,7 +42,6 @@
 					var u = list;
 					$("<tr>").append($("<th>").text(u[i].id))
 					.append($("<th>").text(u[i].username))
-					.append($("<th>").text(u[i].password))
 					.append($("<th>").text(u[i].age))
 					.append($("<th>").text(u[i].email))
 					.append($("<th>").text(u[i].birth))
@@ -58,11 +57,6 @@
   <body onload="init();">
 		<div width="100%" align="center"><h3>用户信息列表</h3></div>
 		<hr>
-		<div align="right">
-			<input type="text" id="txtSearch"/>
-			<button class="btn btn-primary" type="submit" id="Search">查询</button>
-		</div>
-		<hr>
 		<div style="width:100%; height: 100%;">
 			<div name="usertitle" width="100%" align="center">
 				<div>
@@ -71,7 +65,6 @@
 							<tr>
 								<th>用户编号</th>
 								<th>用户姓名</th>
-								<th>用户密码</th>
 								<th>年龄</th>
 								<th>邮箱</th>
 								<th>生日</th>

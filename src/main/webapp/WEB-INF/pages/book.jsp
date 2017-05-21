@@ -40,7 +40,6 @@
 					.append($("<th>").text(new Date(u[i].confirmTime).Format("yyyy-MM-dd HH:mm:ss")))
 					.append($("<th>").text(u[i].uId))
 					.append($("<th>").text(u[i].sId))
-					.append($("<th>").text(u[i].description))
 					.appendTo($("#resultList"));
 				}
 			});
@@ -85,7 +84,6 @@
 								<th>确定时间</th>
 								<th>用户编号</th>
 								<th>座位编号</th>
-								<th>描述信息</th>
 							</tr>
 						</thead>
 						<tbody id="resultList"></tbody>
