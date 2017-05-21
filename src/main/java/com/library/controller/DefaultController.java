@@ -7,14 +7,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.library.pojo.User;
+import com.library.service.AdminService;
 import com.library.service.UserService;
 
 @Controller
 public class DefaultController {
 
 	@Autowired
-	@Qualifier("userService")
-	private UserService userService;
+	@Qualifier("adminService")
+	private AdminService adminService;
 	
 	@RequestMapping(value = "/")
 	public String toIndex() {
@@ -33,7 +34,7 @@ public class DefaultController {
 		user.setPassword(password);
 		System.out.println(user);
 		try {
-			user=userService.login(user);
+			user=adminService.login(user);
 		} catch (Exception e) {
 			return "redirect:/";
 		}
