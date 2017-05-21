@@ -42,9 +42,6 @@ public class OrderController {
 	@RequestMapping("list")
 	public JsonList<Order> getOrders(@RequestBody String uid)throws Exception{
 		List<Order> orders=orderService.queryOrdersByUId(uid);
-		for (Order o:orders) {
-			System.out.println(o);
-		}
 		return new JsonList<Order>(orders);
 	}
 	

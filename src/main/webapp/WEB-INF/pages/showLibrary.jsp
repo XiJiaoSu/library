@@ -43,7 +43,7 @@
 					.append($("<th>").text(u.start))
 					.append($("<th>").text(u.end))
 					.append($("<th>").text(u.description))
-					.append($("<th>").text(u.isOpen))
+					.append($("<th>").text("是"))
 					.append($("<th>").text(u.level))
 					.appendTo($("#resultList"));
 				}
@@ -137,13 +137,14 @@
 							$("#resultList").empty();
 							var list = res.result;
 								var u = list;
-								$("<tr>").append($("<th>").text(u.id))
+								$("<tr>")
+								.append($("<th>").text(u.id))
 								.append($("<th>").text(u.name))
 								.append($("<th>").text(u.address))
 								.append($("<th>").text(u.start))
 								.append($("<th>").text(u.end))
 								.append($("<th>").text(u.description))
-								.append($("<th>").text(u.isOpen))
+								.append($("<th>").text('是'))
 								.append($("<th>").text(u.level))
 								.appendTo($("#resultList"));
 						}

@@ -59,6 +59,9 @@ public class Library implements PTResult{
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "Library [id=" + id + ", name=" + name + ", address=" + address + ", start=" + start + ", end=" + end
+				+ ", description=" + description + ", isOpen=" + isOpen + ", level=" + level + "]";
+	}
 }

@@ -38,8 +38,8 @@
 					.append($("<th>").text(u[i].name))
 					.append($("<th>").text(new Date(u[i].orderTime).Format("yyyy-MM-dd HH:mm:ss")))
 					.append($("<th>").text(new Date(u[i].confirmTime).Format("yyyy-MM-dd HH:mm:ss")))
-					.append($("<th>").text(u[i].uId))
-					.append($("<th>").text(u[i].sId))
+					.append($("<th>").text(u[i].uid))
+					.append($("<th>").text(u[i].sid))
 					.appendTo($("#resultList"));
 				}
 			});
@@ -82,8 +82,8 @@
 								<th>订单名称</th>
 								<th>下单时间</th>
 								<th>确定时间</th>
-								<th>用户编号</th>
-								<th>座位编号</th>
+								<th>用户名</th>
+								<th>座位(名/层/图书馆)</th>
 							</tr>
 						</thead>
 						<tbody id="resultList"></tbody>

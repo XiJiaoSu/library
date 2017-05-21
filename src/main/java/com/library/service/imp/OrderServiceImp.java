@@ -58,7 +58,11 @@ public class OrderServiceImp implements OrderService {
 
 	@Override
 	public List<Order> queryOrders() throws Exception {
-		return orderDao.queryAll();
+		List<Order> orders=orderDao.queryAll();
+		for (Order order : orders) {
+			order.resetInfo();
+		}
+		return orders;
 	}
 	
 	public Order confirmOrder(Order order)throws Exception{

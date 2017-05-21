@@ -78,10 +78,7 @@ public class Seat implements PTResult{
 	@Override
 	public String toString() {
 		return "Seat [id=" + id + ", name=" + name + ", state=" + state + ", pid=" + pid + ", level=" + level
-				+ ", description=" + description + "]";
+				+ ", description=" + description + ", library=" + library + "]";
 	}
 
-	
-	
-	
 }
