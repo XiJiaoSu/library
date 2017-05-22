@@ -1,6 +1,7 @@
 package com.library.service.imp;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,7 @@ public class OrderServiceImp implements OrderService {
 			order.setState(2);
 			return order;
 		}
+		order.setConfirmTime(new Date(System.currentTimeMillis()));
 		orderDao.updateConfirmTime(order);
 		order.setState(1);
 		Seat seat=new Seat();

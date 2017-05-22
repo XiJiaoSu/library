@@ -158,7 +158,7 @@
 	</insert>
 	
 	<update id="updateConfirmTime" parameterType="OrderBean">
-		update t_order set ctime=#{confirmTime} ,state=1
+		update t_order set ctime=#{confirmTime} ,state=1,otime=#{orderTime}
 		where 
 		code=#{id}
 		and 

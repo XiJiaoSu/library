@@ -61,7 +61,6 @@ public class OrderController {
 		Order order=new Order();
 		order.setSid(param.get("sid"));
 		order.setUid(param.get("uid"));
-		order.setConfirmTime(new Date(System.currentTimeMillis()));
 		order=orderService.confirmOrder(order);
 		if (order.getState()==2) {
 //			throw new BaseException(100,"您确定要取消?");
