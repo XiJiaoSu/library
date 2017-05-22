@@ -25,6 +25,14 @@
 			function result(data) {
 				var myChart = echarts.init(document.getElementById('main'));
 				// 指定图表的配置项和数据
+				var start = new Date() - 86400000*6;
+				var xdata ={x:[]};
+				for(var i = 6; i >= 0; --i){
+				    var x = new Date(start);
+				    xdata.x.push((x.getMonth()+1)+'月'+x.getDate()+'日');
+				    start = start + 86400000;
+				}
+				
 				var option = {
 					title: {
 						text: '图书馆预约记录详情'
@@ -43,7 +51,7 @@
 						data:['预约数量']
 					},
 					xAxis: {
-						data: ["1","2","3","4","5","6","7"]
+						data: xdata.x
 					},
 					yAxis: {},
 					series: [{
